@@ -16,12 +16,15 @@ namespace Alumnium.Core
         public string SiteName { get; set; }
         public string SiteOwnerName { get; set; }
         public string SiteOwnerPhone { get; set; }
-        [ForeignKey("AlmuniumTypeId")]
-        public AlumniumType AlumniumType { get; set; }
-        public int AlmuniumTypeId { get; set; }
+        //[ForeignKey("AlmuniumTypeId")]
+        //public AlumniumType AlumniumType { get; set; }
+        //public int AlmuniumTypeId { get; set; }
         public decimal MetersNumber { get; set; }
+        public int DoorsNumber { get; set; }
+        public int WindowsNumber { get; set; }
         public decimal TotalPrice { get; set; }
         public DateTime CreatedOn { get; set; }
         public string Status { get; set; }
+
     }
 }

@@ -16,9 +16,9 @@ namespace Alumnium.Core
         public int Id { get; set; }
         public string TypeName { get; set; }
         public decimal Quantity { get; set; }
-        [ForeignKey("UsedItemId")]
-        public Item Item { get; set; }
-        public int UsedItemId { get; set; }
+        //[ForeignKey("UsedItemId")]
+        //public Item Item { get; set; }
+        //public int UsedItemId { get; set; }
         public string Status { get; set; }
     }
 }

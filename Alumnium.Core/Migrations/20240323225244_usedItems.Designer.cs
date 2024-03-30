@@ -4,6 +4,7 @@ using Alumnium.Core.DbContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Alumnium.Core.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    partial class ApplicationDBContextModelSnapshot : ModelSnapshot
+    [Migration("20240323225244_usedItems")]
+    partial class usedItems
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,32 +23,6 @@ namespace Alumnium.Core.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
-
-            modelBuilder.Entity("Alumnium.Core.AlmuniumUsedItems", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<int>("AluminumTypeId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ItemId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ItemQuantity")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AluminumTypeId");
-
-                    b.HasIndex("ItemId");
-
-                    b.ToTable("AluminumUsedItems");
-                });
 
             modelBuilder.Entity("Alumnium.Core.AlumniumType", b =>
                 {
@@ -67,7 +43,12 @@ namespace Alumnium.Core.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("UsedItemId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("UsedItemId");
 
                     b.ToTable("AlumniumTypes");
                 });
@@ -218,9 +199,6 @@ namespace Alumnium.Core.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("DoorsNumber")
-                        .HasColumnType("int");
-
                     b.Property<decimal>("MetersNumber")
                         .HasColumnType("decimal(18,2)");
 
@@ -243,15 +221,12 @@ namespace Alumnium.Core.Migrations
                     b.Property<decimal>("TotalPrice")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<int>("WindowsNumber")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.ToTable("SiteRequests");
                 });
 
-            modelBuilder.Entity("Alumnium.Core.SiteUsedAlumimum", b =>
+            modelBuilder.Entity("Alumnium.Core.SiteUsedItems", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -271,7 +246,7 @@ namespace Alumnium.Core.Migrations
 
                     b.HasIndex("SiteRequestId");
 
-                    b.ToTable("SiteUsedAlumimums");
+                    b.ToTable("SiteUsedItems");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -407,26 +382,18 @@ namespace Alumnium.Core.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("Alumnium.Core.AlmuniumUsedItems", b =>
+            modelBuilder.Entity("Alumnium.Core.AlumniumType", b =>
                 {
-                    b.HasOne("Alumnium.Core.AlumniumType", "AlumniumType")
-                        .WithMany()
-                        .HasForeignKey("AluminumTypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Alumnium.Core.Item", "Item")
                         .WithMany()
-                        .HasForeignKey("ItemId")
+                        .HasForeignKey("UsedItemId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("AlumniumType");
 
                     b.Navigation("Item");
                 });
 
-            modelBuilder.Entity("Alumnium.Core.SiteUsedAlumimum", b =>
+            modelBuilder.Entity("Alumnium.Core.SiteUsedItems", b =>
                 {
                     b.HasOne("Alumnium.Core.AlumniumType", "AlumniumType")
                         .WithMany()

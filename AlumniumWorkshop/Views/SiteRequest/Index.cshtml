@@ -1,0 +1,68 @@
+﻿@using Alumnium.Core
+@model IEnumerable<AlumniumWorkshop.Models.SiteRequest.SiteRequestModel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<hr />
+
+<p>
+    <a class="btn thareed-button" asp-action="Create">New Site</a>
+</p>
+
+<section class="content">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Sites</h3>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body">
+                    <table id="datatable" class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>
+                                    اسم الموقع
+                                </th>
+                                <th>
+                                    اسم صاحب الموقع
+                                </th>
+                                <th>رقم صاحب الموقع</th>
+                                <th>عدد الامتار</th>
+                                <th> العملية</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.SiteName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.SiteOwnerName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.SiteOwnerPhone)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.MetersNumber)
+                                    </td>
+                                    <td>
+                                        <a class="button" asp-action="Edit" asp-route-id="@item.Id"><i class="fas fa-edit"></i></a>
+
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+

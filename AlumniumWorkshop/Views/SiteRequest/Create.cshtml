@@ -1,0 +1,191 @@
+﻿@model AlumniumWorkshop.Models.SiteRequest.CreateSiteRequestModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<hr />
+<div class="row">
+    <!-- left column -->
+    <div class="col-md-9">
+        <!-- general form elements -->
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title"> New Type</h3>
+            </div>
+            
+            <div class="card-body">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                 <div class="col-9 row">
+                    <div class="col-md-6">
+                        <label asp-for="SiteName" class="control-label"> الاسم</label>
+                        <input asp-for="SiteName" class="form-control" />
+                        <span asp-validation-for="SiteName" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label asp-for="SiteOwnerName" class="control-label"> اسم صاحب الموقع</label>
+                        <input asp-for="SiteOwnerName" class="form-control" />
+                        <span asp-validation-for="SiteOwnerName" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label asp-for="SiteOwnerPhone" class="control-label"> رقم صاحب الموقع</label>
+                        <input asp-for="SiteOwnerPhone" class="form-control" />
+                        <span asp-validation-for="SiteOwnerPhone" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-6">
+                        <label asp-for="MetersNumber" class="control-label"> عدد الامتار</label>
+                        <input asp-for="MetersNumber" class="form-control" />
+                        <span asp-validation-for="MetersNumber" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-6">
+                        <label asp-for="WindowsNumber" class="control-label"> عددالنوافذ</label>
+                        <input asp-for="WindowsNumber" class="form-control" />
+                        <span asp-validation-for="WindowsNumber" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-6">
+                        <label asp-for="DoorsNumber" class="control-label"> عدد الابواب</label>
+                        <input asp-for="DoorsNumber" class="form-control" />
+                        <span asp-validation-for="DoorsNumber" class="text-danger"></span>
+                    </div>
+                </div>
+            
+                <br />
+                <h4>Items</h4>
+                
+                    <div class="row">
+                        <div class="col-9 row">
+                        @foreach (var item in Model.Aluminums)
+                        {
+
+                            <div class="col-md-6 items-checkbox">
+                                <input type="checkbox" asp-for="@item.IsSelected" class="form-check-input" id="select-item" />
+                                <label class="control-label" asp-for="@item.AluminumTypeName">
+                                    @item.AluminumTypeName
+                                </label>
+                                <input asp-for="@item.AluminumTypeId" hidden id="item-id" />
+
+                            </div>
+                        
+                            }
+                        </div>
+                        
+                    </div>
+
+                
+                <div class="card-footer">
+                    <input type="submit" id="submit" value="Submit" style="float:right" class="btn btn-success" />
+                    <a onclick="calculateTotal()" class="btn btn-success">حساب المجموع</a>
+                </div>
+            </div>
+            @* </form> *@
+        </div>
+    </div>
+
+    <div class="modal fade" id="getCodeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color:antiquewhite">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel"> المجموع </h4>
+                </div>
+                <div class="modal-body" id="getCode" style="font-size:larger;align-items:center; overflow-x: scroll;">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div>
+        <a asp-action="Index">Back to List</a>
+    </div>
+</div>
+
+@* @section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+} *@
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script>
+    var itemsForm = document.getElementsByClassName('items-checkbox');
+    
+    $('#submit').click(function () {
+       
+        var model = prepareModel();
+
+        $.ajax({
+            cache: false,
+            type: 'POST',
+            url: '@Url.Action("Create", "SiteRequest")',
+            data: JSON.stringify(model),
+            contentType: "application/json; charset=utf-8",
+            dataType: 'json',
+            success: function (data) {
+                if(data != true)
+                    Swal.fire({
+                        title: "حدث خطأ ما",
+                        text: data,
+                        icon: "error",
+                        timer: 2000
+                    });
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                alert('error');
+            }
+        });
+    });
+
+    function calculateTotal() {
+        var model = prepareModel();
+        $.ajax({
+            cache: false,
+            type: 'POST',
+            url: '@Url.Action("CalculateSiteTotal", "SiteRequest")',
+            data: JSON.stringify(model),
+            contentType: "application/json; charset=utf-8",
+            dataType: 'json',
+            success: function (data) {
+                $("#getCode").html(data);
+                $("#getCodeModal").modal('show');
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                alert('error');
+            }
+        });
+    };
+    function prepareModel(){
+        var aluminums = [];
+        var obj = {
+            AluminumTypeId: 0,
+            AluminumTypeName: '',
+            IsSelected: true
+        }
+
+        for (var t = 0; t < itemsForm.length; t++) {
+            var checkBox = Boolean(itemsForm[t].children[0].checked);
+            if(checkBox == true){
+                obj =
+                {
+                    AluminumTypeId: Number(itemsForm[t].children[3].value),
+                    AluminumTypeName: '',
+                    IsSelected: Boolean(itemsForm[t].children[0].checked)
+                };
+                aluminums.push(obj);
+            }
+           
+        }
+
+        var model = {
+            Id: 0,
+            SiteName: document.getElementById('SiteName').value,
+            SiteOwnerName: document.getElementById('SiteOwnerName').value,
+            SiteOwnerPhone: document.getElementById('SiteOwnerPhone').value,
+            DoorsNumber: Number(document.getElementById('DoorsNumber').value),
+            WindowsNumber: Number(document.getElementById('WindowsNumber').value),
+            MetersNumber: Number(document.getElementById('MetersNumber').value),
+            Aluminums: aluminums
+        };
+        return model;
+    };
+</script>

@@ -1,0 +1,116 @@
+﻿@model AlumniumWorkshop.Models.AlmniumType.CreateAluminumTypeModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<hr />
+<div class="row">
+    <!-- left column -->
+    <div class="col-md-9">
+        <!-- general form elements -->
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title"> New Type</h3>
+            </div>
+            <div class="card-body">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="form-group">
+                    <label asp-for="Name" class="control-label"> الاسم</label>
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Quantity" class="control-label"> الكمية</label>
+                    <input asp-for="Quantity" class="form-control" />
+                    <span asp-validation-for="Quantity" class="text-danger"></span>
+                </div>
+                <br />
+                <h4>Items</h4>
+                @foreach (var item in Model.Items)
+                {
+                    <div class="row">
+                        <div class="col-9 row items-checkbox">
+                            <div class="col-md-3">
+                                <input type="checkbox" asp-for="@item.IsSelected" class="form-check-input" id="select-item" />
+                                <label class="control-label" asp-for="@item.Name">
+                                    @item.Name
+                                </label>
+                            </div>
+                            <div class="col-md-3">
+                                <label asp-for="Quantity" class="control-label"> الكمية</label>
+                                <input asp-for="@item.Quantity" class="form-control" id="qty" />
+                            </div>
+                            <input asp-for="@item.Id" hidden id="item-id" />
+                        </div>
+                    </div>
+
+                }
+                <div class="card-footer">
+                    <input type="submit" id="submit" value="Submit" style="float:right" class="btn btn-success" />
+                </div>
+            </div>
+            @* </form> *@
+        </div>
+    </div>
+
+    <div>
+        <a asp-action="Index">Back to List</a>
+    </div>
+</div>
+
+@* @section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+} *@
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script>
+    var itemsForm = document.getElementsByClassName('items-checkbox');
+    $('#submit').click(function () {
+        var items = [];
+        var obj = {
+            id: 0,
+            name: '',
+            quantity: 0,
+            isSelected: true
+        }
+
+        for (var t = 0; t < itemsForm.length; t++) {
+
+            obj =
+            {
+                id: Number(itemsForm[t].children[2].value),
+                name: '',
+                quantity: Number(itemsForm[t].children[1].children[1].value),
+                isSelected: Boolean(itemsForm[t].children[0].children[0].checked)
+            };
+            items.push(obj);
+        }
+
+        var model = {
+            Id: 0,
+            Name: document.getElementById('Name').value,
+            Quantity: Number(document.getElementById('Quantity').value),
+            Items: items
+        };
+
+        $.ajax({
+            cache: false,
+            type: 'POST',
+            url: '@Url.Action("Create", "AluminumType")',
+            data: JSON.stringify(model),
+            contentType: "application/json; charset=utf-8",
+            dataType: 'json',
+            success: function (data) {
+                location.href = "index";
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                alert('error');
+            }
+        });
+    });
+</script>

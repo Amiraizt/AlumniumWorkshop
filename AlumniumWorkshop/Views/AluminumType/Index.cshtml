@@ -1,0 +1,80 @@
+﻿@using Alumnium.Core
+@model IEnumerable<AlumniumWorkshop.Models.AlmniumType.AlmuniumTypeModel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<hr />
+
+<p>
+    <a class="btn btn-success" asp-action="Create">New Type</a>
+</p>
+
+<section class="content">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Types</h3>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body">
+                    <table id="datatable" class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>
+                                    Name
+                                </th>
+                                <th>
+                                    Quantity
+                                </th>
+                                <th>Status</th>
+                                <th> Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Name)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Quantity)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Status)
+                                    </td>
+                                    <td>
+                                        @if (@item.Status == Consts.ACTIVE)
+                                        {
+                                            <a class="btn btn-success" asp-action="ChangeStatus" asp-route-id="@item.Id"> ON </a>
+                                        }
+                                        else
+                                        {
+                                            <a class="btn btn-danger" asp-action="ChangeStatus" asp-route-id="@item.Id"> OFF</a>
+
+                                        }
+
+                                    </td>
+                                    <td>
+                                        <a class="button" asp-action="Edit" asp-route-id="@item.Id"><i class="fas fa-edit"></i></a>
+
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+@* @section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+} *@
+</script>
