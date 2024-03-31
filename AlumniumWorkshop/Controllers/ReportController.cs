@@ -3,6 +3,7 @@ using Alumnium.Core;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using DeliverySystem.DeliveryCore.Models.Order;
+using AlumniumWorkshop.Models.Reports;
 
 namespace AlumniumWorkshop.Controllers
 {
@@ -22,6 +23,30 @@ namespace AlumniumWorkshop.Controllers
             if (!result.result)
                 return RedirectToAction("Index", "Items");
            GenerateItemsReport report = new GenerateItemsReport();
+            byte[] abytesReport = report.PrepareReport(result.report);
+
+            return File(abytesReport, "application/pdf");
+
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ViewSitesGeneralReport(DateTime startDate, DateTime endDate)
+        {
+            var result = CS.PrepareSitesGeneralReportModel(startDate, endDate);
+            if (!result.result)
+                return RedirectToAction("Index", "SiteRequest");
+            GenerateSitesGeneralReport report = new GenerateSitesGeneralReport();
+            byte[] abytesReport = report.PrepareReport(result.report);
+
+            return File(abytesReport, "application/pdf");
+
+        }
+        public async Task<IActionResult> ViewSiteReport(int id)
+        {
+            var result = CS.PrepareSiteReportModel(id);
+            if (!result.result)
+                return RedirectToAction("Index", "SiteRequest");
+            GenerateSiteReport report = new GenerateSiteReport();
             byte[] abytesReport = report.PrepareReport(result.report);
 
             return File(abytesReport, "application/pdf");
