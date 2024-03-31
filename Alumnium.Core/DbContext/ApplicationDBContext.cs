@@ -29,6 +29,8 @@ namespace Alumnium.Core.DbContext
         {
             optionsBuilder.UseSqlServer("Server=.;Database=AlumniumWorkshop;Trusted_Connection=True;MultipleActiveResultSets=true");
 
+            //optionsBuilder.UseSqlServer("Server=localhost\\SQLEXPRESS;Database=AlumniumWorkshop;Trusted_Connection=True;MultipleActiveResultSets=true");
+
             base.OnConfiguring(optionsBuilder);
         }
     }

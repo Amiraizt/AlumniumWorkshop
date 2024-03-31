@@ -7,7 +7,7 @@
 <hr />
 <div class="row">
     <!-- left column -->
-    <div class="col-md-9">
+    <div class="col-md-12">
         <!-- general form elements -->
         <div class="card">
             <div class="card-header">
@@ -17,13 +17,13 @@
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <input asp-for="Id" id="type-id" hidden/>
                 <div class="form-group">
-                    <label asp-for="Name" class="control-label"> الاسم</label>
+                    <label asp-for="Name" class="control-label"> Name</label>
                     <input asp-for="Name" class="form-control" />
                     <span asp-validation-for="Name" class="text-danger"></span>
                 </div>
-
+                <br />
                 <div class="form-group">
-                    <label asp-for="Quantity" class="control-label"> الكمية</label>
+                    <label asp-for="Quantity" class="control-label"> Quantity</label>
                     <input asp-for="Quantity" class="form-control" />
                     <span asp-validation-for="Quantity" class="text-danger"></span>
                 </div>
@@ -40,7 +40,7 @@
                                 </label>
                             </div>
                             <div class="col-md-3">
-                                <label asp-for="Quantity" class="control-label"> الكمية</label>
+                                <label asp-for="Quantity" class="control-label"> Quantity</label>
                                 <input asp-for="@item.Quantity" class="form-control" id="qty" />
                             </div>
                             <input asp-for="@item.Id" hidden id="item-id" />
@@ -49,16 +49,17 @@
 
                 }
                 <div class="card-footer">
-                    <input type="submit" id="submit" value="Submit" style="float:right" class="btn btn-success" />
+                    <input type="submit" id="submit" value="Submit" style="float:right" class="btn btn-sm btn-primary" />
                 </div>
             </div>
             @* </form> *@
         </div>
     </div>
 
-    <div>
-        <a asp-action="Index">Back to List</a>
-    </div>
+</div>
+<br /> 
+<div>
+    <a asp-action="Index" class="btn btn-sm btn-primary">Back to List</a>
 </div>
 
 @* @section Scripts {

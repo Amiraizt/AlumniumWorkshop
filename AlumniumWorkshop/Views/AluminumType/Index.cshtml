@@ -8,7 +8,7 @@
 <hr />
 
 <p>
-    <a class="btn btn-success" asp-action="Create">New Type</a>
+    <a class="btn btn-sm btn-primary" asp-action="Create">New Type</a>
 </p>
 
 <section class="content">
@@ -49,17 +49,22 @@
                                     <td>
                                         @if (@item.Status == Consts.ACTIVE)
                                         {
-                                            <a class="btn btn-success" asp-action="ChangeStatus" asp-route-id="@item.Id"> ON </a>
+                                            <a class="btn btn-sm btn-primary" asp-action="ChangeStatus" asp-route-id="@item.Id"> ON </a>
                                         }
                                         else
                                         {
-                                            <a class="btn btn-danger" asp-action="ChangeStatus" asp-route-id="@item.Id"> OFF</a>
+                                            <a class="btn btn-sm btn-danger" asp-action="ChangeStatus" asp-route-id="@item.Id"> OFF</a>
 
                                         }
 
                                     </td>
                                     <td>
-                                        <a class="button" asp-action="Edit" asp-route-id="@item.Id"><i class="fas fa-edit"></i></a>
+                                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
+                                            <i class="ki-duotone ki-pencil fs-2">
+                                                <span class="path1"></span>
+                                                <span class="path2"></span>
+                                            </i>
+                                        </a>
 
                                     </td>
                                 </tr>
