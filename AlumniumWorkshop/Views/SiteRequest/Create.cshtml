@@ -7,7 +7,7 @@
 <hr />
 <div class="row">
     <!-- left column -->
-    <div class="col-md-9">
+    <div class="col-md-12">
         <!-- general form elements -->
         <div class="card">
             <div class="card-header">
@@ -75,8 +75,8 @@
 
                 
                 <div class="card-footer">
-                    <input type="submit" id="submit" value="Submit" style="float:right" class="btn btn-success" />
-                    <a onclick="calculateTotal()" class="btn btn-success">حساب المجموع</a>
+                    <input type="submit" id="submit" value="Create" style="float:right" class="btn btn-sm btn-primary" />
+                    <a onclick="calculateTotal()" class="btn btn-sm btn-primary">حساب المجموع</a>
                 </div>
             </div>
             @* </form> *@
@@ -84,10 +84,15 @@
     </div>
 
     <div class="modal fade" id="getCodeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-sm">
+        <div class="modal-dialog modal-dialog-centered  modal-sm">
             <div class="modal-content">
-                <div class="modal-header" style="background-color:antiquewhite">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <div class="modal-header">
+                    <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
+                        <i class="ki-duotone ki-cross fs-1">
+                            <span class="path1"></span>
+                            <span class="path2"></span>
+                        </i>
+                    </div>
                     <h4 class="modal-title" id="myModalLabel"> المجموع </h4>
                 </div>
                 <div class="modal-body" id="getCode" style="font-size:larger;align-items:center; overflow-x: scroll;">
@@ -95,11 +100,11 @@
             </div>
         </div>
     </div>
-    <div>
-        <a asp-action="Index">Back to List</a>
-    </div>
 </div>
-
+<br />
+<div>
+    <a asp-action="Index" class="btn btn-sm btn-primary">Back to List</a>
+</div>
 @* @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
