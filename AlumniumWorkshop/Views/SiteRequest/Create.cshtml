@@ -13,10 +13,10 @@
             <div class="card-header">
                 <h3 class="card-title"> New Type</h3>
             </div>
-            
+
             <div class="card-body">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                 <div class="col-9 row">
+                <div class="col-9 row">
                     <div class="col-md-6">
                         <label asp-for="SiteName" class="control-label"> الاسم</label>
                         <input asp-for="SiteName" class="form-control" />
@@ -50,12 +50,12 @@
                         <span asp-validation-for="DoorsNumber" class="text-danger"></span>
                     </div>
                 </div>
-            
+
                 <br />
                 <h4>Items</h4>
-                
-                    <div class="row">
-                        <div class="col-9 row">
+
+                <div class="row">
+                    <div class="col-9 row">
                         @foreach (var item in Model.Aluminums)
                         {
 
@@ -67,13 +67,13 @@
                                 <input asp-for="@item.AluminumTypeId" hidden id="item-id" />
 
                             </div>
-                        
-                            }
-                        </div>
-                        
+
+                        }
                     </div>
 
-                
+                </div>
+
+
                 <div class="card-footer">
                     <input type="submit" id="submit" value="Submit" style="float:right" class="btn btn-success" />
                     <a onclick="calculateTotal()" class="btn btn-success">حساب المجموع</a>
@@ -84,7 +84,7 @@
     </div>
 
     <div class="modal fade" id="getCodeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-sm">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header" style="background-color:antiquewhite">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -109,9 +109,9 @@
 <script src="~/lib/jquery/dist/jquery.js"></script>
 <script>
     var itemsForm = document.getElementsByClassName('items-checkbox');
-    
+
     $('#submit').click(function () {
-       
+
         var model = prepareModel();
 
         $.ajax({
@@ -122,7 +122,7 @@
             contentType: "application/json; charset=utf-8",
             dataType: 'json',
             success: function (data) {
-                if(data != true)
+                if (data != true)
                     Swal.fire({
                         title: "حدث خطأ ما",
                         text: data,
@@ -146,7 +146,14 @@
             contentType: "application/json; charset=utf-8",
             dataType: 'json',
             success: function (data) {
-                $("#getCode").html(data);
+                var body = document.getElementById("getCode");
+                for (var t = 0; t < data.length; t++) 
+                {
+                    body.innerHTML += "<div><label>" + data[t].aluminumName +"</label><ul>"+ 
+
+                    +"</ul> </div>";
+                }
+                //  // $("#getCode").html(data);
                 $("#getCodeModal").modal('show');
             },
             error: function (xhr, ajaxOptions, thrownError) {
@@ -154,7 +161,7 @@
             }
         });
     };
-    function prepareModel(){
+    function prepareModel() {
         var aluminums = [];
         var obj = {
             AluminumTypeId: 0,
@@ -164,7 +171,7 @@
 
         for (var t = 0; t < itemsForm.length; t++) {
             var checkBox = Boolean(itemsForm[t].children[0].checked);
-            if(checkBox == true){
+            if (checkBox == true) {
                 obj =
                 {
                     AluminumTypeId: Number(itemsForm[t].children[3].value),
@@ -173,7 +180,7 @@
                 };
                 aluminums.push(obj);
             }
-           
+
         }
 
         var model = {

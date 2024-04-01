@@ -3,6 +3,8 @@ using Alumnium.Core;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using AlumniumWorkshop.Models.SiteRequest;
+using AlumniumWorkshop.Models.AlmniumType;
+using Microsoft.EntityFrameworkCore;
 
 namespace AlumniumWorkshop.Controllers
 {
@@ -59,7 +61,25 @@ namespace AlumniumWorkshop.Controllers
         public IActionResult CalculateSiteTotal([FromBody]CreateSiteRequestModel model)
         {
             var result = CS.CalculateSiteRequestTotal(model.Aluminums.ToList(), model.MetersNumber);
-            return Json(result);
+            List<JsonAluminumDetailsModel> list = new List<JsonAluminumDetailsModel>();
+            foreach(var alm in model.Aluminums)
+            {
+                var items = _db.AluminumUsedItems.Where(a => a.Id == alm.AluminumTypeId).Include(a=>a.Item).ToList();
+                var jsonModel = new JsonAluminumDetailsModel
+                {
+                    AluminumName = _db.AlumniumTypes.FirstOrDefault(a => a.Id == alm.AluminumTypeId).TypeName,
+                    Items = items.Select(a => new JsonAluminumDetailsModel.ItemModel
+                    {
+                        ItemName = a.Item.Name,
+                        Qty = (int)(a.ItemQuantity * model.MetersNumber),
+                        UnitPrice = (double)a.Item.Price,
+                        TotalPrice = (double)(a.Item.Price * model.MetersNumber * a.ItemQuantity)
+                    }).ToList()
+                };
+                list.Add(jsonModel);
+            }
+           
+            return Json(list);
         }
     }
 }
