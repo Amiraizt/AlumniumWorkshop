@@ -416,7 +416,7 @@ namespace AlumniumWorkshop.Areas.Helpers
                     {
                         itemsPrice = +item.Item.Price * item.ItemQuantity * meters;
                     }
-                    totalPrice = +itemsPrice;
+                    totalPrice = totalPrice + itemsPrice;
                 }
 
                 return totalPrice;

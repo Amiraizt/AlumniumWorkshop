@@ -5,34 +5,11 @@
     ViewData["Title"] = "Index";
 }
 
+
 <hr />
-
 <p>
-    <div class="row">
-        <div class="form-group">
-            <label for="exampleInputFile"></label>
-
-            <form enctype="multipart/form-data" asp-controller="Report" asp-action="ViewSitesGeneralReport" method="post">
-                <div class="row">
-                    <div class="form-group col-md-6">
-                        <label class="control-label" for="exampleInputFile">تاريخ البداية</label>
-                        <input type="date" class="form-control" name="startDate">
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label class="control-label" for="exampleInputFile">تاريخ النهاية</label>
-                        <input type="date" class="form-control" name="endDate">
-                    </div>
-                    <div class="col-md-3">
-                        <button type="submit" value="Submit" class="btn btn-success col-md-6">انشاء تقرير</button>
-
-                    </div>
-                </div>
-            </form>
-
-        </div>
-    </div>
+    <a class="btn btn-sm btn-primary" asp-action="Create">New Site</a>
 </p>
-
 <section class="content">
     <div class="row">
         <div class="col-12">
@@ -73,9 +50,21 @@
                                         @Html.DisplayFor(modelItem => item.MetersNumber)
                                     </td>
                                     <td>
-                                        <a class="button" asp-action="Edit" asp-route-id="@item.Id"><i class="fas fa-edit"></i></a> |
-                                        <a class="button" asp-controller="Report" asp-action="ViewSiteReport" asp-route-id="@item.Id"><i class="fas fa-eye"></i></a>
-
+                                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
+                                            <i class="ki-duotone ki-pencil fs-2">
+                                                <span class="path1"></span>
+                                                <span class="path2"></span>
+                                            </i>
+                                        </a>
+                                         |
+                                        <a asp-controller="Report" asp-action="ViewSiteReport" asp-route-id="@item.Id" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
+                                            <i class="ki-duotone ki-file fs-2">
+                                                <span class="path1"></span>
+                                                <span class="path2"></span>
+                                            </i>
+                                        </a>
+                                        @* <a asp-controller="Report" asp-action="ViewSiteReport" asp-route-id="@item.Id" class="btn btn-bg-light btn-color-muted btn-active-color-primary btn-sm px-4">Report</a>
+ *@
                                     </td>
                                 </tr>
                             }

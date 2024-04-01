@@ -16,6 +16,11 @@ namespace AlumniumWorkshop.Controllers
             CS.PrepareItemsConsumingReportModel(DateTime.Now.AddDays(-7), DateTime.Now);
             return View();
         }
+
+        public IActionResult ItemsReport()
+        {
+            return View();
+        }
         [HttpPost]
         public async Task<IActionResult> ViewItemsReport(DateTime startDate,DateTime endDate)
         {
@@ -29,6 +34,10 @@ namespace AlumniumWorkshop.Controllers
 
         }
 
+        public IActionResult SiteGeneralReport()
+        {
+            return View();
+        }
         [HttpPost]
         public async Task<IActionResult> ViewSitesGeneralReport(DateTime startDate, DateTime endDate)
         {
