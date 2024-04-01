@@ -1,0 +1,56 @@
+﻿@using Alumnium.Core
+@model IEnumerable<AlumniumWorkshop.Models.User.UserModel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<hr />
+
+<p>
+<a asp-action="CreateUser" class="btn btn-success"> New User </a>
+</p>
+
+<section class="content">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Sites</h3>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body">
+                    <table id="datatable" class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>
+                                    اسم المستخدم
+                                </th>
+                                <th>
+                                    اسم الصلاحية
+                                </th>
+                              
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Email)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Role)
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+

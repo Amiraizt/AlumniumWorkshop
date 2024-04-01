@@ -8,8 +8,8 @@ namespace AlumniumWorkshop.Controllers
 {
     public class SiteRequestController : BaseController
     {
-        public SiteRequestController(IConfiguration configuration, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager,
-         ApplicationDBContext db) : base(configuration, userManager, signInManager, db) { }
+        public SiteRequestController(RoleManager<IdentityRole> roleMngr,IConfiguration configuration, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager,
+         ApplicationDBContext db) : base(roleMngr, configuration, userManager, signInManager, db) { }
         public IActionResult Index()
         {
             var result = CS.GetSiteRequestsList();

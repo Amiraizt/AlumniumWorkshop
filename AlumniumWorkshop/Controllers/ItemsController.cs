@@ -9,8 +9,8 @@ namespace AlumniumWorkshop.Controllers
     public class ItemsController : BaseController
     {
 
-        public ItemsController(IConfiguration configuration, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager,
-            ApplicationDBContext db) : base(configuration, userManager,signInManager,db) { }
+        public ItemsController(RoleManager<IdentityRole> roleMngr, IConfiguration configuration, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager,
+            ApplicationDBContext db) : base(roleMngr,configuration, userManager,signInManager,db) { }
         public IActionResult Index()
         {
             var items = CS.GetItemsList();

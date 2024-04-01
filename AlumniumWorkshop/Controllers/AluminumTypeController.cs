@@ -9,8 +9,8 @@ namespace AlumniumWorkshop.Controllers
 {
     public class AluminumTypeController : BaseController
     {
-        public AluminumTypeController(IConfiguration configuration, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager,
-          ApplicationDBContext db) : base(configuration, userManager, signInManager, db) { }
+        public AluminumTypeController(RoleManager<IdentityRole> roleMngr, IConfiguration configuration, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager,
+          ApplicationDBContext db) : base(roleMngr, configuration, userManager, signInManager, db) { }
         public IActionResult Index()
         {
             var result = CS.GetTypesList();

@@ -9,8 +9,8 @@ namespace AlumniumWorkshop.Controllers
 {
     public class ReportController : BaseController
     {
-        public ReportController(IConfiguration configuration, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager,
-           ApplicationDBContext db) : base(configuration, userManager, signInManager, db) { }
+        public ReportController(RoleManager<IdentityRole> roleMngr, IConfiguration configuration, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager,
+           ApplicationDBContext db) : base(roleMngr, configuration, userManager, signInManager, db) { }
         public IActionResult Index()
         {
             CS.PrepareItemsConsumingReportModel(DateTime.Now.AddDays(-7), DateTime.Now);

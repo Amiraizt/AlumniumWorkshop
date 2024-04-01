@@ -1,0 +1,13 @@
+﻿@{
+    Layout = "_Layout";
+}
+<h1>@ViewData["Title"]</h1>
+<hr />
+<form asp-action="CreateRole" method="post">
+    <div class="form-group">
+        <label class="control-label"> اسم الصلاحية</label>
+
+        <input name="name" class="form-control" />
+    </div>
+    <button type="submit" class="btn btn-success"></button>
+</form>

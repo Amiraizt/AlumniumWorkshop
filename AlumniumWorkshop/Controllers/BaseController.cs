@@ -14,8 +14,9 @@ namespace AlumniumWorkshop.Controllers
         protected ExceptionHandler EXH;
         protected ApplicationDBContext _db;
         protected IConfiguration _configuration;
+        protected RoleManager<IdentityRole> _roleManager;
 
-        public BaseController(IConfiguration configuration, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager,
+        public BaseController(RoleManager<IdentityRole> roleMgr,IConfiguration configuration, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager,
             ApplicationDBContext db)
         {
             _userManager = userManager;
@@ -23,7 +24,9 @@ namespace AlumniumWorkshop.Controllers
             _db = db;
             CS = new CoreServices(db, configuration);
             EXH = new ExceptionHandler(db);
+            _roleManager = roleMgr;
         }
+        
         protected void Alert(string message, Consts.NotificationType notificationType)
         {
             string msg = "";
