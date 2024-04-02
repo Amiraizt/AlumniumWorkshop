@@ -43,6 +43,7 @@ namespace AlumniumWorkshop.Controllers
             var result = CS.GetEditSiteRequestModel(id);
             if (!result.Result)
                 Alert("حدث خطأ ما !", Consts.NotificationType.error);
+
             return View(result.model);
         }
 

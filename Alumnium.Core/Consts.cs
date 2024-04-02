@@ -19,6 +19,10 @@ namespace Alumnium.Core
         public const string DELETED = "Deleted";
         #endregion
 
+        #region User Roles 
+        public const string AdminUserRole = "Admin";
+        public const string SystemAdminUserRole = "System Admin";
+        #endregion
         public enum NotificationType
         {
             error,

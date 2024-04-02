@@ -1,0 +1,44 @@
+﻿@using AlumniumWorkshop.Models.User
+@model EditUserRole
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<hr />
+<div class="row">
+    <!-- left column -->
+    <div class="col-md-12">
+        <!-- general form elements -->
+        <div class="card">
+            <div class="card-header card-thareed">
+                <h3 class="card-title"> التعديل</h3>
+            </div>
+            <form enctype="multipart/form-data" method="post" asp-action="EditUserRole">
+                <div class="card-body">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div>@Model.NAme</div>
+                            </div>
+                            <div class="col-md-9">
+                                <div>
+                                    <select asp-items="@ViewBag.Roles" asp-for="Role" class="form-control"></select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <input type="submit" value="حفظ" style="float:right" class="btn btn-sm btn-primary" />
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>
+<br />
+<div>
+    <a asp-action="Index" class="btn btn-sm btn-primary">رجوع الى القائمة</a>
+</div>
