@@ -2,12 +2,31 @@
     Layout = "_Layout";
 }
 <h1>@ViewData["Title"]</h1>
-<hr />
-<form asp-action="CreateRole" method="post">
-    <div class="form-group">
-        <label class="control-label"> اسم الصلاحية</label>
 
-        <input name="name" class="form-control" />
+<hr />
+<div class="row">
+    <!-- left column -->
+    <div class="col-md-12">
+        <!-- general form elements -->
+        <div class="card">
+            <div class="card-header card-thareed">
+                <h3 class="card-title"> اضافة صلاحية</h3>
+            </div>
+            <form asp-action="CreateRole" method="post">
+                <div class="card-body">
+                   
+                    <div class="form-group">
+                        <label class="control-label"> اسم الصلاحية</label>
+
+                        <input name="name" class="form-control" />
+                    </div>
+                   
+                    <div class="card-footer">
+                        <input type="submit" value="حفظ" class="btn btn-sm btn-primary" />
+                    </div>
+                </div>
+            </form>
+        </div>
     </div>
-    <button type="submit" value="حفظ" class="btn btn-sm btn-primary">حفظ</button>
-</form>
+
+</div>

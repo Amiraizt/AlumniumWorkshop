@@ -52,7 +52,7 @@
                                     <td>
                                         @if (@item.Status == Consts.ACTIVE)
                                         {
-                                            <a class="btn btn-sm btn-primary" asp-action="ChangeStatus" asp-route-id="@item.Id"> مفعل </a>
+                                            <a class="btn btn-sm btn-primary" style="background-color: green !important;" asp-action="ChangeStatus" asp-route-id="@item.Id"> مفعل </a>
                                         }
                                         else
                                         {

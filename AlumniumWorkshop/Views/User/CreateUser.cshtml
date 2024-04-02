@@ -1,43 +1,52 @@
-﻿@model AlumniumWorkshop.Models.User.RegisterationModel 
+﻿@model AlumniumWorkshop.Models.User.RegisterationModel
 @{
     ViewData["Title"] = "تسجيل حساب";
     Layout = "_Layout";
 }
 
-<h1>@ViewData["Title"]</h1>
+<hr />
+
 <div class="row">
-    <div class="col-md-4">
-        <form  asp-action="CreateUser"  method="post">
-            <h2>اضافة مستخدم جديد</h2>
-            <hr />
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="group-control">
-                <label asp-for="Email">الايميل</label>
-                <input asp-for="Email" class="form-control" autocomplete="username" aria-required="true" />
-                
-                <span asp-validation-for="Email" class="text-danger"></span>
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header card-thareed">
+                <h3 class="card-title"> اضافة مستخدم جديد</h3>
             </div>
-            <br />
-            <div class="group-control">
-                <label asp-for="Password">كلمة المرور</label>
-                <input asp-for="Password" class="form-control" autocomplete="new-password" aria-required="true" />
-                
-                <span asp-validation-for="Password" class="text-danger"></span>
+            <!-- /.card-header -->
+            <div class="card-body">
+                <form asp-action="CreateUser" method="post">
+
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="group-control">
+                        <label asp-for="Email">الايميل</label>
+                        <input asp-for="Email" class="form-control" autocomplete="username" aria-required="true" />
+
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+                    <br />
+                    <div class="group-control">
+                        <label asp-for="Password">كلمة المرور</label>
+                        <input asp-for="Password" class="form-control" autocomplete="new-password" aria-required="true" />
+
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    </div>
+                    <br />
+                    <div class="group-control">
+                        <label asp-for="ConfirmPassword">تأكيد كلمة المرور</label>
+                        <input asp-for="ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" />
+
+                        <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                    </div>
+                    <br />
+                    <div class="group-control">
+                        <label asp-for="RoleName">الصلاحيات</label>
+                        <select class="select-list form-control" asp-for="RoleName" asp-items="@ViewBag.Roles"></select>
+                    </div>
+                    <br />
+                    <button type="submit" class="btn btn-sm btn-primary">تسجيل</button>
+                </form>
             </div>
-            <br />
-            <div class="group-control">
-                <label asp-for="ConfirmPassword">تأكيد كلمة المرور</label>
-                <input asp-for="ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" />
-                
-                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
-            </div>
-            <br />
-            <div class="group-control">
-                <label asp-for="RoleName">الصلاحيات</label>
-                <select class="select-list form-control" asp-for="RoleName" asp-items="@ViewBag.Roles"></select>
-            </div>
-            <br />
-            <button type="submit" class="w-100 btn btn-lg btn-primary">تسجيل</button>
-        </form>
+        </div>
     </div>
 </div>
+
