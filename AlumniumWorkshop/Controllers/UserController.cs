@@ -90,16 +90,14 @@ namespace AlumniumWorkshop.Controllers
         public async Task<IActionResult> Logout()
         {
             var currentUSer = User;
-            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-            //await _signManager.SignOutAsync();
+            //await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            await _signManager.SignOutAsync();
             return RedirectToAction("Index", "Home");
         }
         public async Task<IActionResult> CreateRole() { return View(); }
         [HttpPost]
         public async Task<IActionResult> CreateRole(string name)
         {
-
-
             if (ModelState.IsValid)
             {
                 IdentityResult result = await _roleManager.CreateAsync(new IdentityRole(name));

@@ -3,6 +3,7 @@ using Alumnium.Core.DbContext;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,26 +13,31 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 builder.Services.AddDbContext<ApplicationDBContext>(options =>
     options.UseSqlServer(connectionString));
 
-builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-.AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, options =>
-{
-    options.ExpireTimeSpan = TimeSpan.FromMinutes(120);
-    options.SlidingExpiration = true;
-    options.LoginPath = "/identity/account/login";
-});
+//builder.Services.AddAuthentication()
+//.AddCookie(options =>
+//{
+//    options.ExpireTimeSpan = TimeSpan.FromMinutes(120);
+//    options.SlidingExpiration = true;
+//    options.LoginPath = "/identity/account/login";
+//});
 
-builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
-{
-    options.SignIn.RequireConfirmedAccount = false;
+//builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
+//{
+//    options.SignIn.RequireConfirmedAccount = false;
+//    options.Password.RequireNonAlphanumeric = false;
+//    options.Password.RequireDigit = false;
+//    options.Password.RequireUppercase = false;
+//    options.Password.RequireLowercase = false;
+//}
+//    )
+//        .AddEntityFrameworkStores<ApplicationDBContext>();
+builder.Services.AddDefaultIdentity<ApplicationUser>(options => {
+    options.SignIn.RequireConfirmedAccount = true;
     options.Password.RequireNonAlphanumeric = false;
     options.Password.RequireDigit = false;
     options.Password.RequireUppercase = false;
     options.Password.RequireLowercase = false;
-}
-    )
-        .AddEntityFrameworkStores<ApplicationDBContext>();
-//builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-//    .AddEntityFrameworkStores<ApplicationDBContext>();\=
+}).AddEntityFrameworkStores<ApplicationDBContext>();
 
 
 
@@ -60,5 +66,6 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
 app.MapRazorPages();
 app.Run();

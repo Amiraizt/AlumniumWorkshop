@@ -27,7 +27,8 @@ namespace Alumnium.Core.DbContext
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Server=.;Database=AlumniumWorkshop;Trusted_Connection=True;MultipleActiveResultSets=true");
+            optionsBuilder.UseSqlServer("Data Source=SQL5104.site4now.net;Initial Catalog=db_aa7316_eqna3db;User Id=db_aa7316_eqna3db_admin;Password=sys@123#");
+            //optionsBuilder.UseSqlServer("Server=.;Database=AlumniumWorkshop;Trusted_Connection=True;MultipleActiveResultSets=true");
 
             //optionsBuilder.UseSqlServer("Server=localhost\\SQLEXPRESS;Database=AlumniumWorkshop;Trusted_Connection=True;MultipleActiveResultSets=true");
 
