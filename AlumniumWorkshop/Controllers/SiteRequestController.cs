@@ -85,5 +85,14 @@ namespace AlumniumWorkshop.Controllers
             };
             return Json(respnseModel);
         }
+        public IActionResult Delete(int id)
+        {
+            var result = CS.DeleteSiteRequest(id);
+            if (!result)
+                Alert("حدث خطأ", Consts.NotificationType.error);
+            else
+                Alert("تم التعديل", Consts.NotificationType.success);
+            return RedirectToAction(nameof(Index));
+        }
     }
 }

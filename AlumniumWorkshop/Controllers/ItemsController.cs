@@ -90,5 +90,15 @@ namespace AlumniumWorkshop.Controllers
             }
             return RedirectToAction(nameof(AddNewItemQuantity));
         }
+
+        public IActionResult Delete(int id)
+        {
+            var result = CS.DeleteItem(id);
+            if (!result)
+                Alert("حدث خطأ", Consts.NotificationType.error);
+            else
+                Alert("تم التعديل", Consts.NotificationType.success);
+            return RedirectToAction(nameof(Index));
+        }
     }
 }

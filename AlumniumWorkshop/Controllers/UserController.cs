@@ -104,5 +104,19 @@ namespace AlumniumWorkshop.Controllers
             }
             return RedirectToAction(nameof(Index));
         }
+        public IActionResult EditUserRole()
+        {
+            return View();
+        }
+
+        public async Task<IActionResult> EditUserRole(string userId, string role)
+        {
+            var result = await CS.EditUserRole(userId, role);
+            if (!result)
+                Alert("حدث خطأ", Consts.NotificationType.error);
+            else
+                Alert("تمت العملية بنجاح", Consts.NotificationType.success);
+            return RedirectToAction(nameof(Index));
+        }
     }
 }
