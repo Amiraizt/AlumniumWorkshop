@@ -4,9 +4,11 @@ using AlumniumWorkshop.Models.Item;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Authorization;
 
 namespace AlumniumWorkshop.Controllers
 {
+    [Authorize]
     public class ItemsController : BaseController
     {
 

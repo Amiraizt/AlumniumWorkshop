@@ -2,6 +2,9 @@
 using Alumnium.Core.DbContext;
 using AlumniumWorkshop.Areas.Identity.Pages.Account;
 using AlumniumWorkshop.Models.User;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
@@ -10,6 +13,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace AlumniumWorkshop.Controllers
 {
+    [Authorize]
     public class UserController : BaseController
     {
         public UserController(RoleManager<IdentityRole> roleMgr, IConfiguration configuration, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, ApplicationDBContext dbContext) : base(roleMgr, configuration, userManager, signInManager, dbContext)
@@ -86,7 +90,8 @@ namespace AlumniumWorkshop.Controllers
         public async Task<IActionResult> Logout()
         {
             var currentUSer = User;
-            await _signManager.SignOutAsync();
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            //await _signManager.SignOutAsync();
             return RedirectToAction("Index", "Home");
         }
         public async Task<IActionResult> CreateRole() { return View(); }

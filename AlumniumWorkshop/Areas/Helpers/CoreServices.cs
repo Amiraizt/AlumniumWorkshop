@@ -27,11 +27,12 @@ namespace AlumniumWorkshop.Areas.Helpers
             _configuration = configuration;
 
         }
-        public CoreServices(ApplicationDBContext db, IConfiguration configuration)
+        public CoreServices(ApplicationDBContext db, IConfiguration configuration,UserManager<ApplicationUser> userManager)
         {
             _db = db;
             EXH = new ExceptionHandler(db);
             _configuration = configuration;
+            _userManager = userManager;
         }
 
         #region Item

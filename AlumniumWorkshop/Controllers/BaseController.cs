@@ -22,7 +22,7 @@ namespace AlumniumWorkshop.Controllers
             _userManager = userManager;
             _signManager = signInManager;
             _db = db;
-            CS = new CoreServices(db, configuration);
+            CS = new CoreServices(db, configuration,userManager);
             EXH = new ExceptionHandler(db);
             _roleManager = roleMgr;
         }
