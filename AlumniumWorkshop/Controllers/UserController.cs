@@ -25,6 +25,7 @@ namespace AlumniumWorkshop.Controllers
                 var role = _userManager.GetRolesAsync(a).Result;
                 return new UserModel
                 {
+                    Id = a.Id,
                     Email = a.Email,
                     Role = role.FirstOrDefault()
                 };
@@ -102,6 +103,34 @@ namespace AlumniumWorkshop.Controllers
                 else
                     Alert("تمت العملية بنجاح", Consts.NotificationType.success);
             }
+            return RedirectToAction(nameof(Index));
+        }
+        [HttpGet]
+        public IActionResult EditUserRole(string id)
+        {
+            var user = _db.Users.FirstOrDefault(a => a.Id == id);
+            var model = new EditUserRole()
+            {
+                UserId = user.Id,
+                NAme = user.UserName
+            };
+            var roles = _roleManager.Roles.ToList();
+            List<SelectListItem> rolesList = new List<SelectListItem>();
+            foreach (var role in roles)
+            {
+                rolesList.Add(new SelectListItem { Text = role.Name, Value = role.Name });
+            }
+            ViewBag.Roles = rolesList;
+            return View(model);
+        }
+        [HttpPost]
+        public async Task<IActionResult> EditUserRole(EditUserRole model)
+        {
+            var result = await CS.EditUserRole(model.UserId, model.Role);
+            if (!result)
+                Alert("حدث خطأ", Consts.NotificationType.error);
+            else
+                Alert("تمت العملية بنجاح", Consts.NotificationType.success);
             return RedirectToAction(nameof(Index));
         }
     }

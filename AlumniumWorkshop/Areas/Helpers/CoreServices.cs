@@ -180,7 +180,6 @@ namespace AlumniumWorkshop.Areas.Helpers
                 return false;
             }
         }
-        #endregion
         public bool EditItemWarehouse(NewItemQuantityModel model)
         {
             try
@@ -198,6 +197,8 @@ namespace AlumniumWorkshop.Areas.Helpers
             }
 
         }
+        #endregion
+
         #region Site
         public (bool Result, SiteRequestModel model) GetSiteRequestById(int id)
         {
@@ -254,7 +255,7 @@ namespace AlumniumWorkshop.Areas.Helpers
         {
             try
             {
-                var aluminums = _db.AlumniumTypes.Where(a => a.Status != Consts.DELETED).ToList();
+                var aluminums = _db.AlumniumTypes.Where(a => a.Status == Consts.ACTIVE).ToList();
                 var request = new CreateSiteRequestModel()
                 {
                     Aluminums = aluminums.Select(a => new UsedAluminumModel
@@ -390,7 +391,7 @@ namespace AlumniumWorkshop.Areas.Helpers
                 getSite.SiteName = model.SiteName;
                 getSite.WindowsNumber = model.WindowsNumber;
                 getSite.DoorsNumber = model.DoorsNumber;
-                
+
                 //getSite.TotalPrice = CalculateSiteRequestTotal(model.UsedAluminumList, model.MetersNumber);
                 _db.SiteRequests.Update(getSite);
                 _db.SaveChanges();
@@ -423,7 +424,7 @@ namespace AlumniumWorkshop.Areas.Helpers
             try
             {
                 decimal totalPrice = 0;
-                
+
                 decimal AluminumPrice = 0;
                 foreach (var aluminum in usedAluminums)
                 {
@@ -500,7 +501,7 @@ namespace AlumniumWorkshop.Areas.Helpers
         {
             try
             {
-                var usedItems = _db.Items.Where(a => a.Status != Consts.DELETED).ToList();
+                var usedItems = _db.Items.Where(a => a.Status != Consts.ACTIVE).ToList();
 
                 var typeModel = new CreateAluminumTypeModel()
                 {
@@ -692,9 +693,9 @@ namespace AlumniumWorkshop.Areas.Helpers
 
             foreach (var alm in usedAluminum)
             {
-                var aluminumUnits = _db.SiteUsedAlumimums.Where(a => a.AlmuniumTypeId == alm.Id && a.SiteRequest.CreatedOn >= startDate && a.SiteRequest.CreatedOn <= endDate).Include(a=>a.SiteRequest).ToList();
+                var aluminumUnits = _db.SiteUsedAlumimums.Where(a => a.AlmuniumTypeId == alm.Id && a.SiteRequest.CreatedOn >= startDate && a.SiteRequest.CreatedOn <= endDate).Include(a => a.SiteRequest).ToList();
                 var usedQty = aluminumUnits.Count();
-                var usedMeters = aluminumUnits.Sum(a=>a.SiteRequest.MetersNumber);
+                var usedMeters = aluminumUnits.Sum(a => a.SiteRequest.MetersNumber);
                 var model = new ConsumedAluminumModel()
                 {
                     AluminumId = alm.Id,
@@ -850,7 +851,7 @@ namespace AlumniumWorkshop.Areas.Helpers
                         TotalPrice = CalculateSiteTotalPrice(a.Id).ToString()
                     }).ToList(),
                 };
-                return (true,model);
+                return (true, model);
             }
             catch (Exception ex)
             {
@@ -862,7 +863,7 @@ namespace AlumniumWorkshop.Areas.Helpers
         public double CalculateAluminumPricePerMeter(int aluminumId)
         {
             decimal totalPrice = 0;
-            var aluminumItems = _db.AluminumUsedItems.Where(a=>a.AluminumTypeId == aluminumId).Include(a => a.AlumniumType).Include(a => a.Item).ToList();
+            var aluminumItems = _db.AluminumUsedItems.Where(a => a.AluminumTypeId == aluminumId).Include(a => a.AlumniumType).Include(a => a.Item).ToList();
             foreach (var item in aluminumItems)
             {
                 totalPrice += item.Item.Price * item.ItemQuantity;
@@ -872,8 +873,8 @@ namespace AlumniumWorkshop.Areas.Helpers
         public double CalculateSiteTotalPrice(int siteId)
         {
             double totalPrice = 0;
-            var siteUsedAluminiums = _db.SiteUsedAlumimums.Include(a=>a.SiteRequest).Where(a => a.SiteRequestId == siteId).ToList();
-            foreach(var alm in siteUsedAluminiums)
+            var siteUsedAluminiums = _db.SiteUsedAlumimums.Include(a => a.SiteRequest).Where(a => a.SiteRequestId == siteId).ToList();
+            foreach (var alm in siteUsedAluminiums)
             {
                 totalPrice += CalculateAluminumPricePerMeter(alm.AlmuniumTypeId) * (double)alm.SiteRequest.MetersNumber;
             }
@@ -882,14 +883,31 @@ namespace AlumniumWorkshop.Areas.Helpers
         public string GetSiteUsedAluminiumNames(int siteId)
         {
             var name = "";
-            var siteUsedAluminium = _db.SiteUsedAlumimums.Include(a=>a.AlumniumType).Where(a => a.SiteRequestId == siteId).ToList();
-            foreach(var alm in siteUsedAluminium)
+            var siteUsedAluminium = _db.SiteUsedAlumimums.Include(a => a.AlumniumType).Where(a => a.SiteRequestId == siteId).ToList();
+            foreach (var alm in siteUsedAluminium)
             {
                 name += alm.AlumniumType.TypeName;
             }
             return name;
         }
 
-       
+        #region User
+        public async Task<bool> EditUserRole(string userId, string role)
+        {
+            try
+            {
+                var user = _db.Users.FirstOrDefault(a => a.Id == userId);
+                var roles = await _userManager.GetRolesAsync(user);
+                await _userManager.RemoveFromRolesAsync(user, roles);
+                await _userManager.AddToRoleAsync(user, role);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                EXH.LogException(ex, MethodBase.GetCurrentMethod().ReflectedType.Name, MethodBase.GetCurrentMethod().Name);
+                return false;
+            }
+        }
+        #endregion
     }
 }
