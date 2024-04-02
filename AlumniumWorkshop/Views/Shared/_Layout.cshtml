@@ -243,6 +243,20 @@
                                     <!--end:Menu sub-->
                                 </div>
                                 <!--end:Menu item-->
+                                @if (User.IsInRole("Admin"))
+                                {
+                                    <!--begin:Menu item-->
+                                    <div class="menu-item">
+                                        <!--begin:Menu link-->
+                                        <a class="menu-link py-3" href="/User/Index">
+                                            <span class="menu-title">
+                                                <span class="menu-text">المستخدمين</span>
+                                            </span>
+                                        </a>
+                                        <!--end:Menu link-->
+                                    </div>
+                                    <!--end:Menu item-->
+                                }
                             </div>
                             <!--end::Menu-->
                         </div>
