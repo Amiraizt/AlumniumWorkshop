@@ -1,4 +1,5 @@
-﻿@using Microsoft.AspNetCore.Identity
+﻿@using Alumnium.Core
+@using Microsoft.AspNetCore.Identity
 
 <html lang="ar-sa" dir="rtl">
 <!--begin::Head-->
@@ -104,7 +105,7 @@
                                             <!--begin::Username-->
                                             <div class="d-flex flex-column">
                                                 <div class="fw-bold d-flex align-items-center fs-5">
-                                                    @if (User.IsInRole("Admin"))
+                                                    @if (User.IsInRole(Consts.SystemAdminUserRole))
                                                     {
                                                         <lable>System Admin </lable>
                                                     }
@@ -128,7 +129,7 @@
                                     <!--end::Menu separator-->
                                     <!--begin::Menu item-->
                                     <div class="menu-item px-5">
-                                        <a href="/Account/Login" class="menu-link px-5">تسجيل خروج</a>
+                                        <a href="/User/Logout" class="menu-link px-5">تسجيل خروج</a>
                                     </div>
                                     <!--end::Menu item-->
                                 </div>

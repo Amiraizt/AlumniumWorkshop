@@ -4,9 +4,11 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using DeliverySystem.DeliveryCore.Models.Order;
 using AlumniumWorkshop.Models.Reports;
+using Microsoft.AspNetCore.Authorization;
 
 namespace AlumniumWorkshop.Controllers
 {
+    [Authorize]
     public class ReportController : BaseController
     {
         public ReportController(RoleManager<IdentityRole> roleMngr, IConfiguration configuration, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager,

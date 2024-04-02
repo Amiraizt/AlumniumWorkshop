@@ -2,11 +2,13 @@
 using Alumnium.Core.DbContext;
 using AlumniumWorkshop.Models.AlmniumType;
 using AlumniumWorkshop.Models.Item;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AlumniumWorkshop.Controllers
 {
+    [Authorize]
     public class AluminumTypeController : BaseController
     {
         public AluminumTypeController(RoleManager<IdentityRole> roleMngr, IConfiguration configuration, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager,

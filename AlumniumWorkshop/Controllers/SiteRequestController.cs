@@ -5,9 +5,11 @@ using Microsoft.AspNetCore.Mvc;
 using AlumniumWorkshop.Models.SiteRequest;
 using AlumniumWorkshop.Models.AlmniumType;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 
 namespace AlumniumWorkshop.Controllers
 {
+    [Authorize]
     public class SiteRequestController : BaseController
     {
         public SiteRequestController(RoleManager<IdentityRole> roleMngr,IConfiguration configuration, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager,
