@@ -9,14 +9,14 @@
 <hr />
 
 <p>
-    <a class="btn btn-sm btn-primary" asp-action="Create">New Item</a>
+    <a class="btn btn-sm btn-primary" asp-action="Create">اضافة مادة</a>
 </p>
 <section class="content">
     <div class="row">
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title">Items</h3>
+                    <h3 class="card-title">المواد</h3>
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
@@ -24,14 +24,14 @@
                         <thead>
                             <tr>
                                 <th>
-                                    Name
+                                    الاسم
                                 </th>
                                 <th>
-                                    Quantity
+                                    الكمية
                                 </th>
-                                <th>Price</th>
-                                <th>Status</th>
-                                <th> Action</th>
+                                <th>السعر</th>
+                                <th>الحالة</th>
+                                <th> الاجراء</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -50,11 +50,11 @@
                                     <td>
                                         @if (@item.Status == Consts.ACTIVE)
                                         {
-                                            <a class="btn btn-sm btn-primary" asp-action="ChangeStatus" asp-route-id="@item.Id"> ON </a>
+                                            <a class="btn btn-sm btn-primary" asp-action="ChangeStatus" asp-route-id="@item.Id"> مفعل </a>
                                         }
                                         else
                                         {
-                                            <a class="btn btn-sm btn-danger" asp-action="ChangeStatus" asp-route-id="@item.Id"> OFF</a>
+                                            <a class="btn btn-sm btn-danger" asp-action="ChangeStatus" asp-route-id="@item.Id"> غير مفعل</a>
 
                                         }
 

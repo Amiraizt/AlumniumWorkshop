@@ -17,7 +17,7 @@
             <div class="card-body">
                 <form asp-action="Edit" method="post">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                    <div class="col-9 row">
+                    <div class="row">
                         <div class="col-md-6">
                             <label asp-for="SiteName" class="control-label"> الاسم</label>
                             <input asp-for="SiteName" class="form-control" />
@@ -35,16 +35,16 @@
                             <input asp-for="SiteOwnerPhone" class="form-control" />
                             <span asp-validation-for="SiteOwnerPhone" class="text-danger"></span>
                         </div>
+                        
+                    </div>
+                    <div class="row">
+
                         <div class="col-md-6">
-                            <label asp-for="WindowsNumber" class="control-label"> عددالنوافذ</label>
-                            <input asp-for="WindowsNumber" class="form-control" />
-                            <span asp-validation-for="WindowsNumber" class="text-danger"></span>
+                            <label asp-for="SiteOwnerPhone" class="control-label"> رقم صاحب الموقع</label>
+                            <input asp-for="SiteOwnerPhone" class="form-control" />
+                            <span asp-validation-for="SiteOwnerPhone" class="text-danger"></span>
                         </div>
-                        <div class="col-md-6">
-                            <label asp-for="DoorsNumber" class="control-label"> عدد الابواب</label>
-                            <input asp-for="DoorsNumber" class="form-control" />
-                            <span asp-validation-for="DoorsNumber" class="text-danger"></span>
-                        </div>
+
                     </div>
                     <br />
                     <div class="col-9 row">
@@ -62,7 +62,7 @@
 
                     <br />
                     <hr />
-                    <h2>الألمنيوم</h2>
+                    <h2>الألمونيوم</h2>
                     <br />
                     <div class="row">
                         <div class="col-9">
@@ -71,7 +71,7 @@
                                 <div class="row">  
                                 <div class="col-md-2">
                                     <label class="control-label" asp-for="@item.AluminumTypeName">
-                                        نوع الألمنيوم
+                                        نوع الألمونيوم
                                     </label>
                                 </div>
 
@@ -87,7 +87,7 @@
                         </div>
                     </div>
                     <div class="card-footer">
-                        <input type="submit" value="Save" class="btn btn-sm btn-primary" />
+                        <input type="submit" value="حفظ" class="btn btn-sm btn-primary" />
                     </div>
                 </form>
             </div>
@@ -98,5 +98,5 @@
 </div>
 <br />
 <div>
-    <a asp-action="Index" class="btn btn-sm btn-primary">Back to List</a>
+    <a asp-action="Index" class="btn btn-sm btn-primary">رجوع الى القائمة</a>
 </div>
