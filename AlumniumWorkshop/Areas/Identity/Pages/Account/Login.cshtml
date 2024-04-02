@@ -8,7 +8,7 @@
 }
 
 <!DOCTYPE html>
-<html lang="ar-sa">
+<html lang="ar-sa" dir="rtl" style="font-family:Cairo">
 <!--begin::Head-->
 <head>
 	<title>مؤسسة اقناع للألمونيوم</title>
@@ -21,6 +21,8 @@
 	<!--begin::Global Stylesheets Bundle(mandatory for all pages)-->
 	<link href="~/Content/assets/plugins/global/plugins.bundle.css" rel="stylesheet" type="text/css" />
 	<link href="~/Content/assets/css/style.bundle.css" rel="stylesheet" type="text/css" />
+	<link href='https://fonts.googleapis.com/css?family=Cairo' rel='stylesheet'>
+
 	<!--end::Global Stylesheets Bundle-->
 	<script>// Frame-busting to prevent site from being loaded within a frame without permission (click-jacking) if (window.top != window.self) { window.top.location.replace(window.self.location.href); }</script>
 </head>
@@ -47,8 +49,8 @@
 							<!--begin::Input group=-->
 							<div class="fv-row mb-8">
 								<!--begin::Email-->
-								<label asp-for="Input.Email" class="form-label"></label>
-								<input asp-for="Input.Email" class="form-control" placeholder="Email" autocomplete="username" aria-required="true" />
+								<label asp-for="Input.Email" class="form-label">البريد الاكتروني</label>
+								<input asp-for="Input.Email" class="form-control" placeholder="البريد الالكتروني" autocomplete="username" aria-required="true" />
 								
 								<span asp-validation-for="Input.Email" class="text-danger"></span>
 								<!--end::Email-->
@@ -56,13 +58,13 @@
 							<!--end::Input group=-->
 							<div class="fv-row mb-3">
 								<!--begin::Password-->
-								<label asp-for="Input.Password" class="form-label"></label>
-								<input asp-for="Input.Password" class="form-control" placeholder="Password" autocomplete="current-password" aria-required="true" />
+								<label asp-for="Input.Password" class="form-label">كلمة المرور</label>
+								<input asp-for="Input.Password" class="form-control" placeholder="كلمة المرور" autocomplete="current-password" aria-required="true" />
 								
 								<span asp-validation-for="Input.Password" class="text-danger"></span>
 								<!--end::Password-->
 							</div>
-							<div class="row">
+							@* <div class="row">
 								<div class="items-checkbox">
 									<label asp-for="Input.RememberMe" class="form-label">
 										<input class="form-check-input" asp-for="Input.RememberMe" />
@@ -70,13 +72,13 @@
 									</label>
 								</div>
 
-								<a id="forgot-password" asp-page="./ForgotPassword" class="link-primary" style="color:#17a4c6 !important">Forgot Password ?</a>
-							</div>
+								<a id="forgot-password" asp-page="./ForgotPassword" class="link-primary" style="color:#17a4c6 !important">هل نسيت كلمة المرور؟</a>
+							</div> *@
 							<!--begin::Submit button-->
 							<div class="d-grid mb-10">
 								<button id="login-submit" type="submit" class="btn btn-primary">
 									<!--begin::Indicator label-->
-									<span class="indicator-label">Sign In</span>
+									<span class="indicator-label">تسجيل الدخول</span>
 									<!--end::Indicator label-->
 									<!--begin::Indicator progress-->
 									<span class="indicator-progress">
@@ -88,10 +90,10 @@
 							</div>
 							<!--end::Submit button-->
 							<!--begin::Sign up-->
-							<div class="text-gray-500 text-center fw-semibold fs-6">
+							<!--<div class="text-gray-500 text-center fw-semibold fs-6">
 								Not a Member yet?
 								<a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl" class="link-primary" style="color:#17a4c6 !important">Sign up</a>
-							</div>
+							</div>-->
 							<!--end::Sign up-->
 						</form>
 						<!--end::Form-->
