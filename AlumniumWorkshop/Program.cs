@@ -13,31 +13,32 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 builder.Services.AddDbContext<ApplicationDBContext>(options =>
     options.UseSqlServer(connectionString));
 
-//builder.Services.AddAuthentication()
-//.AddCookie(options =>
-//{
-//    options.ExpireTimeSpan = TimeSpan.FromMinutes(120);
-//    options.SlidingExpiration = true;
-//    options.LoginPath = "/identity/account/login";
-//});
 
-//builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
-//{
+
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
+{
+    options.SignIn.RequireConfirmedAccount = false;
+    options.Password.RequireNonAlphanumeric = false;
+    options.Password.RequireDigit = false;
+    options.Password.RequireUppercase = false;
+    options.Password.RequireLowercase = false;
+}
+    ).AddDefaultUI()
+        .AddEntityFrameworkStores<ApplicationDBContext>();
+builder.Services.AddAuthentication()
+.AddCookie(options =>
+{
+    options.ExpireTimeSpan = TimeSpan.FromMinutes(120);
+    options.SlidingExpiration = true;
+    options.LoginPath = "/identity/account/login";
+});
+//builder.Services.AddDefaultIdentity<ApplicationUser>(options => {
 //    options.SignIn.RequireConfirmedAccount = false;
 //    options.Password.RequireNonAlphanumeric = false;
 //    options.Password.RequireDigit = false;
 //    options.Password.RequireUppercase = false;
 //    options.Password.RequireLowercase = false;
-//}
-//    )
-//        .AddEntityFrameworkStores<ApplicationDBContext>();
-builder.Services.AddDefaultIdentity<ApplicationUser>(options => {
-    options.SignIn.RequireConfirmedAccount = true;
-    options.Password.RequireNonAlphanumeric = false;
-    options.Password.RequireDigit = false;
-    options.Password.RequireUppercase = false;
-    options.Password.RequireLowercase = false;
-}).AddEntityFrameworkStores<ApplicationDBContext>();
+//}).AddEntityFrameworkStores<ApplicationDBContext>();
 
 
 
