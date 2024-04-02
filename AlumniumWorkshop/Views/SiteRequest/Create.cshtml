@@ -84,7 +84,7 @@
     </div>
 
     <div class="modal fade" id="getCodeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered  modal-sm">
+        <div class="modal-dialog modal-dialog-centered  modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
                     <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
@@ -95,7 +95,18 @@
                     </div>
                     <h4 class="modal-title" id="myModalLabel"> المجموع </h4>
                 </div>
-                <div class="modal-body" id="getCode" style="font-size:larger;align-items:center; overflow-x: scroll;">
+                <div class="modal-body" style="font-size:larger;align-items:center; overflow-x: scroll;">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <h2>المجموع الكلي</h2>
+                        </div>
+                        <div class="col-md-9">
+                            <h2 id="sitetotal"> </h2>
+                        </div>
+                    </div>
+                   <hr />
+                   <br />
+                    <div id="getCode"></div>
                 </div>
             </div>
         </div>
@@ -127,13 +138,23 @@
             contentType: "application/json; charset=utf-8",
             dataType: 'json',
             success: function (data) {
-                if (data != true)
+                if (data != true) {
                     Swal.fire({
                         title: "حدث خطأ ما",
                         text: data,
                         icon: "error",
                         timer: 2000
                     });
+                }
+                else {
+                    Swal.fire({
+                        title: "تمت الاضافة",
+                        text: data,
+                        icon: "success",
+                        timer: 2000
+                    });
+                    location.reload();
+                }
             },
             error: function (xhr, ajaxOptions, thrownError) {
                 alert('error');
@@ -142,6 +163,7 @@
     });
 
     function calculateTotal() {
+        var total = document.getElementById("sitetotal");
         var model = prepareModel();
         $.ajax({
             cache: false,
@@ -152,12 +174,20 @@
             dataType: 'json',
             success: function (data) {
                 var body = document.getElementById("getCode");
-                for (var t = 0; t < data.length; t++) 
-                {
-                    body.innerHTML += "<div><label>" + data[t].aluminumName +"</label><ul>"+ 
-
-                    +"</ul> </div>";
+                var itemList = document.getElementById("itemlist");
+                body.innerHTML = "";
+                for (var t = 0; t < data.aluminums.length; t++) {
+                    var tableDiv = "<table class='table table-bordered table - striped'><thead><tr><th>المنتج</th><th>الكمية</th><th>سعر الوحدة</th><th>السعر الكلي</th></thead><tbody>"
+                    var itemUl = "";
+                    var text = "";
+                    text = "<div><h4>" +"نوع الألمنيوم: " + data.aluminums[t].aluminumName +  "</h4> </div>";
+                    for (var i = 0; i < data.aluminums[t].items.length; i++) {
+                        itemUl += "<tr><td>" + data.aluminums[t].items[i].itemName + "</td> <td>" + data.aluminums[t].items[i].qty + "</td><td>" + data.aluminums[t].items[i].unitPrice + "</td><td>" + data.aluminums[t].items[i].totalPrice + "</td></tr>"
+                    }
+                    tableDiv += itemUl + "</tbody></table> <br /> <br />"
+                    body.innerHTML += text + tableDiv;
                 }
+                total.innerHTML = data.totalPrice;
                 //  // $("#getCode").html(data);
                 $("#getCodeModal").modal('show');
             },

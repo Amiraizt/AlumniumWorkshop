@@ -181,7 +181,23 @@ namespace AlumniumWorkshop.Areas.Helpers
             }
         }
         #endregion
+        public bool EditItemWarehouse(NewItemQuantityModel model)
+        {
+            try
+            {
+                var getItem = _db.Items.FirstOrDefault(a => a.Id == model.ItemId);
+                getItem.Quantity = getItem.Quantity + model.NewQuantity;
+                _db.Items.Update(getItem);
+                _db.SaveChanges();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                EXH.LogException(ex, MethodBase.GetCurrentMethod().ReflectedType.Name, MethodBase.GetCurrentMethod().Name);
+                return false;
+            }
 
+        }
         #region Site
         public (bool Result, SiteRequestModel model) GetSiteRequestById(int id)
         {
@@ -300,7 +316,7 @@ namespace AlumniumWorkshop.Areas.Helpers
                     DoorsNumber = model.DoorsNumber,
                     SiteOwnerPhone = model.SiteOwnerPhone,
                     Status = Consts.ACTIVE,
-                    TotalPrice = model.TotalPrice,
+                    TotalPrice = CalculateSiteRequestTotal(model.Aluminums.ToList(), model.MetersNumber),
 
                 };
                 _db.SiteRequests.Add(request);
@@ -374,7 +390,7 @@ namespace AlumniumWorkshop.Areas.Helpers
                 getSite.SiteName = model.SiteName;
                 getSite.WindowsNumber = model.WindowsNumber;
                 getSite.DoorsNumber = model.DoorsNumber;
-
+                
                 //getSite.TotalPrice = CalculateSiteRequestTotal(model.UsedAluminumList, model.MetersNumber);
                 _db.SiteRequests.Update(getSite);
                 _db.SaveChanges();
@@ -407,16 +423,17 @@ namespace AlumniumWorkshop.Areas.Helpers
             try
             {
                 decimal totalPrice = 0;
-                decimal itemsPrice = 0;
+                
                 decimal AluminumPrice = 0;
                 foreach (var aluminum in usedAluminums)
                 {
+                    decimal itemsPrice = 0;
                     var types = _db.AluminumUsedItems.Include(a => a.Item).Where(a => a.AluminumTypeId == aluminum.AluminumTypeId).ToList();
                     foreach (var item in types)
                     {
-                        itemsPrice = +item.Item.Price * item.ItemQuantity * meters;
+                        itemsPrice += item.Item.Price * item.ItemQuantity * meters;
                     }
-                    totalPrice = totalPrice + itemsPrice;
+                    totalPrice += itemsPrice;
                 }
 
                 return totalPrice;
@@ -675,12 +692,15 @@ namespace AlumniumWorkshop.Areas.Helpers
 
             foreach (var alm in usedAluminum)
             {
-                var usedQty = _db.SiteUsedAlumimums.Where(a => a.AlmuniumTypeId == alm.Id && a.SiteRequest.CreatedOn >= startDate && a.SiteRequest.CreatedOn <= endDate).Count();
+                var aluminumUnits = _db.SiteUsedAlumimums.Where(a => a.AlmuniumTypeId == alm.Id && a.SiteRequest.CreatedOn >= startDate && a.SiteRequest.CreatedOn <= endDate).Include(a=>a.SiteRequest).ToList();
+                var usedQty = aluminumUnits.Count();
+                var usedMeters = aluminumUnits.Sum(a=>a.SiteRequest.MetersNumber);
                 var model = new ConsumedAluminumModel()
                 {
                     AluminumId = alm.Id,
                     AluminumName = alm.TypeName,
-                    Quantity = usedQty
+                    Quantity = usedQty,
+                    UsedMeters = (int)usedMeters
                 };
                 aluminumList.Add(model);
             }
@@ -698,13 +718,13 @@ namespace AlumniumWorkshop.Areas.Helpers
                     var almniumItems = _db.AluminumUsedItems.Include(a => a.Item).Where(a => a.AluminumTypeId == conAlm.AluminumId).ToList();
                     foreach (var alm in almniumItems)
                     {
-                        var itemQty = alm.ItemQuantity * conAlm.Quantity;
+                        var itemQty = alm.ItemQuantity * conAlm.UsedMeters;
                         var model = new ConsumedItemsModel()
                         {
                             Id = alm.ItemId,
                             Name = alm.Item.Name,
                             Quantity = itemQty,
-                            TotalPrice = itemQty * alm.Item.Price
+                            TotalPrice = itemQty * alm.Item.Price * conAlm.UsedMeters
                         };
                         itemsList.Add(model);
                     }
@@ -842,7 +862,7 @@ namespace AlumniumWorkshop.Areas.Helpers
         public double CalculateAluminumPricePerMeter(int aluminumId)
         {
             decimal totalPrice = 0;
-            var aluminumItems = _db.AluminumUsedItems.Include(a => a.AlumniumType).Include(a => a.Item).ToList();
+            var aluminumItems = _db.AluminumUsedItems.Where(a=>a.AluminumTypeId == aluminumId).Include(a => a.AlumniumType).Include(a => a.Item).ToList();
             foreach (var item in aluminumItems)
             {
                 totalPrice += item.Item.Price * item.ItemQuantity;

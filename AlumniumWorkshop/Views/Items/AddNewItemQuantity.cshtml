@@ -1,0 +1,47 @@
+﻿@model AlumniumWorkshop.Models.Item.NewItemQuantityModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<hr />
+<div class="row">
+    <!-- left column -->
+    <div class="col-md-12">
+        <!-- general form elements -->
+        <div class="card">
+            <div class="card-header card-thareed">
+                <h3 class="card-title"> New Item</h3>
+            </div>
+            <form enctype="multipart/form-data" method="post" asp-action="AddNewItemQuantity">
+                <div class="card-body">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="col-9 row">
+                        <div class="col-md-6">
+                        <select class="select-list" asp-for="ItemId" asp-items="@ViewBag.Items"></select>
+                    </div>
+                        <div class="col-md-6">
+                        <label asp-for="NewQuantity" class="control-label"> الكمية</label>
+                        <input asp-for="NewQuantity" class="form-control" />
+                        <span asp-validation-for="NewQuantity" class="text-danger"></span>
+                    </div>
+                    <br />
+                    <div class="card-footer">
+                        <input type="submit" value="Create" style="float:right" class="btn btn-sm btn-primary" />
+                    </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>
+<br />
+<div>
+    <a asp-action="Index" class="btn btn-sm btn-primary">Back to List</a>
+</div>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

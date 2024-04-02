@@ -16,58 +16,82 @@
 
             <div class="card-body">
                 <form asp-action="Edit" method="post">
-                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                <div class="col-9 row">
-                    <div class="col-md-6">
-                        <label asp-for="SiteName" class="control-label"> الاسم</label>
-                        <input asp-for="SiteName" class="form-control" />
-                        <span asp-validation-for="SiteName" class="text-danger"></span>
-                    </div>
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="col-9 row">
+                        <div class="col-md-6">
+                            <label asp-for="SiteName" class="control-label"> الاسم</label>
+                            <input asp-for="SiteName" class="form-control" />
+                            <span asp-validation-for="SiteName" class="text-danger"></span>
+                        </div>
 
-                    <div class="col-md-6">
-                        <label asp-for="SiteOwnerName" class="control-label"> اسم صاحب الموقع</label>
-                        <input asp-for="SiteOwnerName" class="form-control" />
-                        <span asp-validation-for="SiteOwnerName" class="text-danger"></span>
-                    </div>
+                        <div class="col-md-6">
+                            <label asp-for="SiteOwnerName" class="control-label"> اسم صاحب الموقع</label>
+                            <input asp-for="SiteOwnerName" class="form-control" />
+                            <span asp-validation-for="SiteOwnerName" class="text-danger"></span>
+                        </div>
 
-                    <div class="col-md-6">
-                        <label asp-for="SiteOwnerPhone" class="control-label"> رقم صاحب الموقع</label>
-                        <input asp-for="SiteOwnerPhone" class="form-control" />
-                        <span asp-validation-for="SiteOwnerPhone" class="text-danger"></span>
+                        <div class="col-md-6">
+                            <label asp-for="SiteOwnerPhone" class="control-label"> رقم صاحب الموقع</label>
+                            <input asp-for="SiteOwnerPhone" class="form-control" />
+                            <span asp-validation-for="SiteOwnerPhone" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-6">
+                            <label asp-for="WindowsNumber" class="control-label"> عددالنوافذ</label>
+                            <input asp-for="WindowsNumber" class="form-control" />
+                            <span asp-validation-for="WindowsNumber" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-6">
+                            <label asp-for="DoorsNumber" class="control-label"> عدد الابواب</label>
+                            <input asp-for="DoorsNumber" class="form-control" />
+                            <span asp-validation-for="DoorsNumber" class="text-danger"></span>
+                        </div>
                     </div>
-                    <div class="col-md-6">
-                        <label asp-for="WindowsNumber" class="control-label"> عددالنوافذ</label>
-                        <input asp-for="WindowsNumber" class="form-control" />
-                        <span asp-validation-for="WindowsNumber" class="text-danger"></span>
-                    </div>
-                    <div class="col-md-6">
-                        <label asp-for="DoorsNumber" class="control-label"> عدد الابواب</label>
-                        <input asp-for="DoorsNumber" class="form-control" />
-                        <span asp-validation-for="DoorsNumber" class="text-danger"></span>
-                    </div>
-                </div>
-
-                <br />
-                <h4>الألمنيوم</h4>
-                @foreach (var item in Model.UsedAluminumList)
-                {
-                    <div class="row">
-                        <div class="col-9 row items-checkbox">
-                            <div class="col-md-3">
-                                <label class="control-label" asp-for="@item.AluminumTypeName">
-                                    @item.AluminumTypeName
-                                </label>
+                    <br />
+                    <div class="col-9 row">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <h3>اجمالي السعر</h3>
+                                </div>
+                                <div class="col-md-9">
+                                    <h3> @Model.TotalPrice</h3>
+                                </div>
                             </div>
                         </div>
                     </div>
 
-                }
-                <div class="card-footer">
-                        <input type="submit" value="Save" style="float:right" class="btn btn-sm btn-primary" />
-                </div>
+                    <br />
+                    <hr />
+                    <h2>الألمنيوم</h2>
+                    <br />
+                    <div class="row">
+                        <div class="col-9">
+                            @foreach (var item in Model.UsedAluminumList)
+                            {
+                                <div class="row">  
+                                <div class="col-md-2">
+                                    <label class="control-label" asp-for="@item.AluminumTypeName">
+                                        نوع الألمنيوم
+                                    </label>
+                                </div>
+
+                                <div class="col-md-2">
+                                    <label class="control-label" asp-for="@item.AluminumTypeName">
+                                        @item.AluminumTypeName
+                                    </label>
+                                </div>
+
+                                </div>
+                                <br />
+                            }
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <input type="submit" value="Save" class="btn btn-sm btn-primary" />
+                    </div>
                 </form>
             </div>
-            
+
         </div>
     </div>
 

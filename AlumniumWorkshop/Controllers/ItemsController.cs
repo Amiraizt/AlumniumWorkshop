@@ -3,6 +3,7 @@ using Alumnium.Core;
 using AlumniumWorkshop.Models.Item;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace AlumniumWorkshop.Controllers
 {
@@ -62,6 +63,32 @@ namespace AlumniumWorkshop.Controllers
         {
             var result = CS.ChangeItemStatus(id);
             return RedirectToAction(nameof(Index));
+        }
+        [HttpGet]
+        public IActionResult AddNewItemQuantity()
+        {
+            var items = _db.Items.Where(a=>a.Status != Consts.DELETED).ToList();
+            List<SelectListItem> list = new List<SelectListItem>();
+            foreach (var item in items)
+            {
+                list.Add(new SelectListItem { Text = item.Name , Value = item.Id.ToString()});
+            }
+            ViewBag.Items = list;
+            return View();
+        }
+        [HttpPost]
+        public IActionResult AddNewItemQuantity(NewItemQuantityModel model)
+        {
+            var result = CS.EditItemWarehouse(model);
+            if (!result)
+            {
+                Alert("حدث خطأ", Consts.NotificationType.error);
+            }
+            else
+            {
+                Alert("تم التعديل", Consts.NotificationType.success);
+            }
+            return RedirectToAction(nameof(AddNewItemQuantity));
         }
     }
 }

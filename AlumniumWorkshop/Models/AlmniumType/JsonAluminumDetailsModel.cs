@@ -3,6 +3,7 @@
     public class JsonAluminumDetailsModel
     {
         public string AluminumName { get; set; }
+        public double SitTotal { get; set; }
         public List<ItemModel> Items { get; set; }
         public class ItemModel
         {

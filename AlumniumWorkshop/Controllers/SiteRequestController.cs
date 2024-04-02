@@ -64,7 +64,7 @@ namespace AlumniumWorkshop.Controllers
             List<JsonAluminumDetailsModel> list = new List<JsonAluminumDetailsModel>();
             foreach(var alm in model.Aluminums)
             {
-                var items = _db.AluminumUsedItems.Where(a => a.Id == alm.AluminumTypeId).Include(a=>a.Item).ToList();
+                var items = _db.AluminumUsedItems.Where(a => a.AluminumTypeId == alm.AluminumTypeId).Include(a=>a.Item).ToList();
                 var jsonModel = new JsonAluminumDetailsModel
                 {
                     AluminumName = _db.AlumniumTypes.FirstOrDefault(a => a.Id == alm.AluminumTypeId).TypeName,
@@ -78,8 +78,12 @@ namespace AlumniumWorkshop.Controllers
                 };
                 list.Add(jsonModel);
             }
-           
-            return Json(list);
+            var respnseModel = new SiteJsonResponseModel() {
+                aluminums = list,
+                TotalPrice = (double)result
+              
+            };
+            return Json(respnseModel);
         }
     }
 }
