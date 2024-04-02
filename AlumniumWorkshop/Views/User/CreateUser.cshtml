@@ -1,6 +1,6 @@
 ﻿@model AlumniumWorkshop.Models.User.RegisterationModel 
 @{
-    ViewData["Title"] = "Register";
+    ViewData["Title"] = "تسجيل حساب";
     Layout = "_Layout";
 }
 
@@ -8,28 +8,36 @@
 <div class="row">
     <div class="col-md-4">
         <form  asp-action="CreateUser"  method="post">
-            <h2>Create a new account.</h2>
+            <h2>اضافة مستخدم جديد</h2>
             <hr />
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-floating">
+            <div class="group-control">
+                <label asp-for="Email">الايميل</label>
                 <input asp-for="Email" class="form-control" autocomplete="username" aria-required="true" />
-                <label asp-for="Email"></label>
+                
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
-            <div class="form-floating">
+            <br />
+            <div class="group-control">
+                <label asp-for="Password">كلمة المرور</label>
                 <input asp-for="Password" class="form-control" autocomplete="new-password" aria-required="true" />
-                <label asp-for="Password"></label>
+                
                 <span asp-validation-for="Password" class="text-danger"></span>
             </div>
-            <div class="form-floating">
+            <br />
+            <div class="group-control">
+                <label asp-for="ConfirmPassword">تأكيد كلمة المرور</label>
                 <input asp-for="ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" />
-                <label asp-for="ConfirmPassword"></label>
+                
                 <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
             </div>
-            <div class="form-floating">
-                <select class="select-list" asp-for="RoleName" asp-items="@ViewBag.Roles"></select>
+            <br />
+            <div class="group-control">
+                <label asp-for="RoleName">الصلاحيات</label>
+                <select class="select-list form-control" asp-for="RoleName" asp-items="@ViewBag.Roles"></select>
             </div>
-            <button  type="submit" class="w-100 btn btn-lg btn-primary">Register</button>
+            <br />
+            <button type="submit" class="w-100 btn btn-lg btn-primary">تسجيل</button>
         </form>
     </div>
 </div>
