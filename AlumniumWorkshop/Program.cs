@@ -1,6 +1,7 @@
 using Alumnium.Core;
 using Alumnium.Core.DbContext;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
@@ -14,7 +15,13 @@ builder.Services.AddDbContext<ApplicationDBContext>(options =>
     options.UseSqlServer(connectionString));
 
 
-
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+.AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, options =>
+{
+    options.ExpireTimeSpan = TimeSpan.FromMinutes(120);
+    options.SlidingExpiration = true;
+    options.LoginPath = "/identity/account/login";
+});
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
 {
     options.SignIn.RequireConfirmedAccount = false;
@@ -24,14 +31,8 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
     options.Password.RequireLowercase = false;
 }
     ).AddDefaultUI()
-        .AddEntityFrameworkStores<ApplicationDBContext>();
-builder.Services.AddAuthentication()
-.AddCookie(options =>
-{
-    options.ExpireTimeSpan = TimeSpan.FromMinutes(120);
-    options.SlidingExpiration = true;
-    options.LoginPath = "/identity/account/login";
-});
+    .AddEntityFrameworkStores<ApplicationDBContext>().AddDefaultTokenProviders(); ;
+
 //builder.Services.AddDefaultIdentity<ApplicationUser>(options => {
 //    options.SignIn.RequireConfirmedAccount = false;
 //    options.Password.RequireNonAlphanumeric = false;
@@ -60,8 +61,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-app.UseAuthentication();;
-
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(

@@ -8,7 +8,7 @@
 
 <hr />
 <p>
-    @if (User.IsInRole(Consts.SystemAdminUserRole))
+    @if (Context.User.IsInRole(Consts.SystemAdminUserRole))
     {
         <a class="btn btn-sm btn-primary" asp-action="Create">اضافة موقع</a>
     }
@@ -62,6 +62,12 @@
                                         |
                                         <a asp-controller="Report" asp-action="ViewSiteReport" asp-route-id="@item.Id" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
                                             <i class="ki-duotone ki-file fs-2">
+                                                <span class="path1"></span>
+                                                <span class="path2"></span>
+                                            </i>
+                                        </a> |
+                                        <a asp-action="Delete" asp-route-id="@item.Id" onclick="return confirm('هل تريد الحذف ؟');" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
+                                            <i class="ki-duotone ki-cross fs-2">
                                                 <span class="path1"></span>
                                                 <span class="path2"></span>
                                             </i>

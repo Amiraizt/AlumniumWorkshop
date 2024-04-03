@@ -67,6 +67,12 @@
                                                 <span class="path1"></span>
                                                 <span class="path2"></span>
                                             </i>
+                                        </a> |
+                                        <a asp-action="Delete" asp-route-id="@item.Id" onclick="return confirm('هل تريد الحذف ؟');" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
+                                            <i class="ki-duotone ki-cross fs-2">
+                                                <span class="path1"></span>
+                                                <span class="path2"></span>
+                                            </i>
                                         </a>
 
                                     </td>
