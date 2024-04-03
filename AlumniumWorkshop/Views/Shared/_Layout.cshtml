@@ -245,7 +245,7 @@
                                     <!--end:Menu sub-->
                                 </div>
                                 <!--end:Menu item-->
-                                @if (User.IsInRole("Admin"))
+                                @if (User.IsInRole(Consts.SystemAdminUserRole))
                                 {
                                     <!--begin:Menu item-->
                                     <div class="menu-item">
