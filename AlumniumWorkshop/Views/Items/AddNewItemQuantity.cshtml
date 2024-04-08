@@ -18,7 +18,8 @@
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     <div class="col-9 row">
                         <div class="col-md-6">
-                        <select class="select-list" asp-for="ItemId" asp-items="@ViewBag.Items"></select>
+                            <label asp-for="ItemId" class="control-label"> المادة</label>
+                            <select class="form-control" asp-for="ItemId" asp-items="@ViewBag.Items"></select>
                     </div>
                         <div class="col-md-6">
                         <label asp-for="NewQuantity" class="control-label"> الكمية</label>

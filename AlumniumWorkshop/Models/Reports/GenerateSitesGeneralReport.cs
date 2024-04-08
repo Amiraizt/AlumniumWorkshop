@@ -12,7 +12,7 @@ namespace AlumniumWorkshop.Models.Reports
         int _totalColumn = 8;
         Document _doc = new Document();
         Font _fontStyle;
-        PdfPTable _pdfTable1 = new PdfPTable(6);
+        PdfPTable _pdfTable1 = new PdfPTable(4);
       
         PdfPTable _totalsTable = new PdfPTable(2)
         {
@@ -37,8 +37,8 @@ namespace AlumniumWorkshop.Models.Reports
             _fontStyle = FontFactory.GetFont("Arial", 8f, 2);
             PdfWriter.GetInstance(_doc, _memoryStream);
             _doc.Open();
-            _pdfTable1.SetWidths(new float[] { 50f, 50f, 50f, 50f, 50f,50f });
-            _totalsTable.SetWidths(new float[] { 100f, 270f });
+            _pdfTable1.SetWidths(new float[] { 50f, 50f, 50f, 50f});
+            _totalsTable.SetWidths(new float[] { 50f, 150f });
 
             ReportHeader();
             ReportBody();
@@ -193,19 +193,19 @@ namespace AlumniumWorkshop.Models.Reports
             _pdfCell.BackgroundColor = lightgrey;
             _pdfTable1.AddCell(_pdfCell);
 
-            _pdfCell = new PdfPCell(new Phrase("عددالنوافذ", boldFont));
-            _pdfCell.HorizontalAlignment = Element.ALIGN_CENTER;
-            _pdfCell.VerticalAlignment = Element.ALIGN_CENTER;
-            _pdfCell.RunDirection = PdfWriter.RUN_DIRECTION_RTL;
-            _pdfCell.BackgroundColor = lightgrey;
-            _pdfTable1.AddCell(_pdfCell);
+            //_pdfCell = new PdfPCell(new Phrase("عددالنوافذ", boldFont));
+            //_pdfCell.HorizontalAlignment = Element.ALIGN_CENTER;
+            //_pdfCell.VerticalAlignment = Element.ALIGN_CENTER;
+            //_pdfCell.RunDirection = PdfWriter.RUN_DIRECTION_RTL;
+            //_pdfCell.BackgroundColor = lightgrey;
+            //_pdfTable1.AddCell(_pdfCell);
 
-            _pdfCell = new PdfPCell(new Phrase("عددالأبواب", boldFont));
-            _pdfCell.HorizontalAlignment = Element.ALIGN_CENTER;
-            _pdfCell.VerticalAlignment = Element.ALIGN_CENTER;
-            _pdfCell.RunDirection = PdfWriter.RUN_DIRECTION_RTL;
-            _pdfCell.BackgroundColor = lightgrey;
-            _pdfTable1.AddCell(_pdfCell);
+            //_pdfCell = new PdfPCell(new Phrase("عددالأبواب", boldFont));
+            //_pdfCell.HorizontalAlignment = Element.ALIGN_CENTER;
+            //_pdfCell.VerticalAlignment = Element.ALIGN_CENTER;
+            //_pdfCell.RunDirection = PdfWriter.RUN_DIRECTION_RTL;
+            //_pdfCell.BackgroundColor = lightgrey;
+            //_pdfTable1.AddCell(_pdfCell);
             _pdfCell = new PdfPCell(new Phrase("الإجمالي", boldFont));
             _pdfCell.HorizontalAlignment = Element.ALIGN_CENTER;
             _pdfCell.VerticalAlignment = Element.ALIGN_CENTER;
@@ -240,19 +240,19 @@ namespace AlumniumWorkshop.Models.Reports
                 _pdfCell.BackgroundColor = BaseColor.WHITE;
                 _pdfTable1.AddCell(_pdfCell);
 
-                _pdfCell = new PdfPCell(new Phrase(item.WindowsNumber, normalFont));
-                _pdfCell.HorizontalAlignment = Element.ALIGN_CENTER;
-                _pdfCell.VerticalAlignment = Element.ALIGN_CENTER;
-                _pdfCell.RunDirection = PdfWriter.RUN_DIRECTION_RTL;
-                _pdfCell.BackgroundColor = BaseColor.WHITE;
-                _pdfTable1.AddCell(_pdfCell);
+                //_pdfCell = new PdfPCell(new Phrase(item.WindowsNumber, normalFont));
+                //_pdfCell.HorizontalAlignment = Element.ALIGN_CENTER;
+                //_pdfCell.VerticalAlignment = Element.ALIGN_CENTER;
+                //_pdfCell.RunDirection = PdfWriter.RUN_DIRECTION_RTL;
+                //_pdfCell.BackgroundColor = BaseColor.WHITE;
+                //_pdfTable1.AddCell(_pdfCell);
 
-                _pdfCell = new PdfPCell(new Phrase(item.DoorsNumber, normalFont));
-                _pdfCell.HorizontalAlignment = Element.ALIGN_CENTER;
-                _pdfCell.VerticalAlignment = Element.ALIGN_CENTER;
-                _pdfCell.RunDirection = PdfWriter.RUN_DIRECTION_RTL;
-                _pdfCell.BackgroundColor = BaseColor.WHITE;
-                _pdfTable1.AddCell(_pdfCell);
+                //_pdfCell = new PdfPCell(new Phrase(item.DoorsNumber, normalFont));
+                //_pdfCell.HorizontalAlignment = Element.ALIGN_CENTER;
+                //_pdfCell.VerticalAlignment = Element.ALIGN_CENTER;
+                //_pdfCell.RunDirection = PdfWriter.RUN_DIRECTION_RTL;
+                //_pdfCell.BackgroundColor = BaseColor.WHITE;
+                //_pdfTable1.AddCell(_pdfCell);
 
                 _pdfCell = new PdfPCell(new Phrase(item.TotalPrice.ToString(), normalFont));
                 _pdfCell.HorizontalAlignment = Element.ALIGN_CENTER;

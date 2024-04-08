@@ -13,7 +13,7 @@ namespace DeliverySystem.DeliveryCore.Models.Order
         int _totalColumn = 8;
         Document _doc = new Document();
         Font _fontStyle;
-        PdfPTable _pdfTable1 = new PdfPTable(4);
+        PdfPTable _pdfTable1 = new PdfPTable(5);
         PdfPTable _pdfTable2 = new PdfPTable(5);
         PdfPTable _totalsTable = new PdfPTable(2)
         {
@@ -38,7 +38,7 @@ namespace DeliverySystem.DeliveryCore.Models.Order
             _fontStyle = FontFactory.GetFont("Arial", 8f, 2);
             PdfWriter.GetInstance(_doc, _memoryStream);
             _doc.Open();
-            _pdfTable1.SetWidths(new float[] { 50f, 50f, 50f, 50f });
+            _pdfTable1.SetWidths(new float[] { 50f, 50f, 50f, 50f,50f });
             _totalsTable.SetWidths(new float[] { 100f,  300f });
 
             ReportHeader();
@@ -187,6 +187,13 @@ namespace DeliverySystem.DeliveryCore.Models.Order
             _pdfCell.BackgroundColor = lightgrey;
             _pdfTable1.AddCell(_pdfCell);
 
+            _pdfCell = new PdfPCell(new Phrase("الكمية في المخزن", boldFont));
+            _pdfCell.HorizontalAlignment = Element.ALIGN_CENTER;
+            _pdfCell.VerticalAlignment = Element.ALIGN_CENTER;
+            _pdfCell.RunDirection = PdfWriter.RUN_DIRECTION_RTL;
+            _pdfCell.BackgroundColor = lightgrey;
+            _pdfTable1.AddCell(_pdfCell);
+
 
 
             _pdfCell = new PdfPCell(new Phrase("سعر الوحدة", boldFont));
@@ -224,6 +231,14 @@ namespace DeliverySystem.DeliveryCore.Models.Order
                 _pdfCell.BackgroundColor = BaseColor.WHITE;
                 _pdfTable1.AddCell(_pdfCell);
 
+
+                _pdfCell = new PdfPCell(new Phrase(item.WareHouseQuantity.ToString(), normalFont));
+                _pdfCell.HorizontalAlignment = Element.ALIGN_CENTER;
+                _pdfCell.VerticalAlignment = Element.ALIGN_CENTER;
+                _pdfCell.RunDirection = PdfWriter.RUN_DIRECTION_RTL;
+                _pdfCell.BackgroundColor = BaseColor.WHITE;
+                _pdfTable1.AddCell(_pdfCell);
+
                 _pdfCell = new PdfPCell(new Phrase(item.UnitPrice.ToString() + " " + "SAR", normalFont));
                 _pdfCell.HorizontalAlignment = Element.ALIGN_CENTER;
                 _pdfCell.VerticalAlignment = Element.ALIGN_CENTER;
@@ -247,7 +262,6 @@ namespace DeliverySystem.DeliveryCore.Models.Order
             _fontStyle = new Font(basefont, 11, Font.BOLD, darkblue); ;
 
 
-            int serialNumber2 = 1;
 
 
         }

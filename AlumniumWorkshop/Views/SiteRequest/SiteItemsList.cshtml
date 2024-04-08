@@ -1,0 +1,60 @@
+﻿@using AlumniumWorkshop.Models.SiteRequest
+@model RootSiteUsedItemModel
+
+<hr />
+<div class="row">
+
+    <!-- left column -->
+    <div class="col-md-12">
+        <!-- general form elements -->
+        <div class="card">
+            <div class="card-header card-thareed">
+                <h3 class="card-title"> استخدام المواد</h3>
+            </div>
+            <div class="card-body">
+                <div class="col-12 row">
+                    <div class="col-md-4">
+                        <h3> المادة</h3>
+                    </div>
+                    <div class="col-md-4">
+                        <h3> الكمية</h3>
+
+                    </div>
+                </div>
+            </div>
+            @foreach (var item in Model.Items)
+            {
+                <form enctype="multipart/form-data" method="post" asp-action="UseItem">
+                    <div class="card-body">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="col-12 row">
+                            <div class="col-md-4">
+                                <label><strong>@item.ItemName</strong> </label>
+                            </div>
+                            <div class="col-md-4">
+                                <input asp-for="@item.Quantity" name="Quantity" class="form-control" />
+                                <span asp-validation-for="@item.Quantity" class="text-danger"></span>
+                            </div>
+                            <input asp-for="@Model.SiteId" name="SiteId" hidden />
+                            <input asp-for="@item.ItemId" name="ItemId" hidden />
+                            <div class="col-md-4">
+                                <input type="submit" value="استخدام" style="float:right;margin-top: 4px;" class="btn btn-sm btn-primary" />
+                            </div>
+                        
+
+                        </div>
+                    </div>
+                </form>
+            }
+
+        </div>
+    </div>
+
+</div>
+<br />
+
+@* @section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+} *@

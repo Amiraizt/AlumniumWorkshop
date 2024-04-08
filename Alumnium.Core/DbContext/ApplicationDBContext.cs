@@ -19,6 +19,7 @@ namespace Alumnium.Core.DbContext
         public DbSet<ExceptionLog> ExceptionLogs { get; set; }
         public DbSet<SiteRequest> SiteRequests { get; set; }
         public DbSet<SiteUsedAlumimum> SiteUsedAlumimums { get; set; }
+        public DbSet<SiteUsedItems> SiteUsedItems { get; set; }
         public DbSet<AlmuniumUsedItems> AluminumUsedItems { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {

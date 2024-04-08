@@ -97,5 +97,31 @@ namespace AlumniumWorkshop.Controllers
                 Alert("تم التعديل", Consts.NotificationType.success);
             return RedirectToAction(nameof(Index));
         }
+        public IActionResult SiteItemsList(int siteId)
+        {
+            var result = CS.GetSiteItemsList(siteId);
+            if (!result.Result)
+                Alert("حدث خطأ", Consts.NotificationType.error);
+      
+            return View(result.model);
+        }
+        [HttpPost]
+        public IActionResult UseItem(int Quantity,int ItemId,int SiteId)
+        {
+            var model = new UseItemModel
+            {
+                ItemId = ItemId,
+                Quantity = Quantity,
+                SiteId = SiteId
+            };
+            var result = CS.ReduceItemQuantity(model);
+            if(!result.Result)
+                Alert(result.response, Consts.NotificationType.error);
+            else
+                Alert("تم الاستخدام", Consts.NotificationType.success);
+            return RedirectToAction(nameof(SiteItemsList),new { siteID = SiteId});
+
+
+        }
     }
 }

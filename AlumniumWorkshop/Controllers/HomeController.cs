@@ -6,15 +6,16 @@ using System.Diagnostics;
 
 namespace AlumniumWorkshop.Controllers
 {
-    [Authorize]
+    [Authorize(AuthenticationSchemes = CookieAuthenticationDefaults.AuthenticationScheme)]
 
     public class HomeController : Controller
     {
 
-        //[Authorize(AuthenticationSchemes = CookieAuthenticationDefaults.AuthenticationScheme)]
+        [Authorize]
         public IActionResult Index()
         {
             return View();
+            return RedirectToAction("Index", "SiteRequest");
         }
 
         public IActionResult Privacy()

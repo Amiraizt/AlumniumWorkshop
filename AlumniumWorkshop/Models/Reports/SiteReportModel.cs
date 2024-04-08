@@ -9,6 +9,7 @@
         public string WindowsNumber { get; set; }
         public string DoorsNumber { get; set; }
         public string SiteTotalPrice { get; set; }
+        public string CurrentTotalPrice { get; set; }
         public IList<ItemModel> Items { get; set; }
         public IList<AluminumModel> Aluminums { get; set; }
         public class ItemModel
@@ -16,7 +17,7 @@
             public string ItemName { get; set; }
             public string UsedQuantity { get; set; }
             public string UnitPrice { get; set; }
-            public string Price { get; set; }
+            public double Price { get; set; }
         }
         public class AluminumModel
         {

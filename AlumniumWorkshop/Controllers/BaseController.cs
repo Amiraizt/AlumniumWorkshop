@@ -33,13 +33,13 @@ namespace AlumniumWorkshop.Controllers
             switch (notificationType)
             {
                 case Consts.NotificationType.success:
-                    //msg = " title='تم';message='" + message + "';type='" + notificationType.ToString().ToLower() + "'; swal({title: title,text:message,type: type});";
-                    msg = " title='تم';message='" + message + "';type='" + notificationType.ToString().ToLower() + "'; sweetAlert( title,message,type);";
+                    msg = " title='تم';message='" + message + "';icon='" + notificationType.ToString().ToLower() + "'; Swal.fire({title: title,text:message,icon: icon});";
+                    //msg = " title='تم';message='" + message + "';type='" + notificationType.ToString().ToLower() + "'; sweetAlert( title,message,type);";
                     break;
                 case Consts.NotificationType.error:
                     //msg = "swal({title: " + "خطأ" + ",text:" + message + ",type: " + notificationType.ToString().ToLower() + "});";
-                    //msg = " title='خطأ';message='" + message + "';type='" + notificationType.ToString().ToLower() + "'; swal({title: title,text:message,type: type});";
-                    msg = " title='خطأ';message='" + message + "';type='" + notificationType.ToString().ToLower() + "'; sweetAlert( title,message,type);";
+                    msg = " title='خطأ';message='" + message + "';icon='" + notificationType.ToString().ToLower() + "'; Swal.fire({title: title,text:message,icon: icon});";
+                    //msg = " title='خطأ';message='" + message + "';type='" + notificationType.ToString().ToLower() + "'; sweetAlert( title,message,type);";
 
                     break;
                 case Consts.NotificationType.info:

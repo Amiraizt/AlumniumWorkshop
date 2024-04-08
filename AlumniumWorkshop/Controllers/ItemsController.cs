@@ -36,6 +36,11 @@ namespace AlumniumWorkshop.Controllers
                 Alert("حدث خطأ", Consts.NotificationType.error);
                 return RedirectToAction(nameof(Create));
             }
+            else
+            {
+                Alert("تمت الاضافة", Consts.NotificationType.success);
+
+            }
             return RedirectToAction(nameof(Index));
         }
 
