@@ -1118,7 +1118,7 @@ namespace AlumniumWorkshop.Areas.Helpers
                         Id = a.Id,
                         Name = a.Item.Name,
                         Quantity = (int)a.Quantity,
-                        AdditionDate = a.AdditionDate.Date
+                        AdditionDate = a.AdditionDate.ToShortDateString()
                     };
                 }).ToList();
 

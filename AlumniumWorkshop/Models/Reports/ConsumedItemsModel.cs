@@ -8,6 +8,6 @@
         public int WareHouseQuantity { get; set; }
         public decimal TotalPrice { get; set; }
         public decimal UnitPrice { get; set; }
-        public DateTime AdditionDate { get; set; }
+        public string AdditionDate { get; set; }
     }
 }

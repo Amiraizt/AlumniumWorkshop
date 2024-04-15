@@ -211,7 +211,7 @@ namespace DeliverySystem.DeliveryCore.Models.Order
                 _pdfTable1.AddCell(_pdfCell);
 
 
-                _pdfCell = new PdfPCell(new Phrase(item.AdditionDate.Date.ToString(), normalFont));
+                _pdfCell = new PdfPCell(new Phrase(item.AdditionDate.ToString(), normalFont));
                 _pdfCell.HorizontalAlignment = Element.ALIGN_CENTER;
                 _pdfCell.VerticalAlignment = Element.ALIGN_CENTER;
                 _pdfCell.RunDirection = PdfWriter.RUN_DIRECTION_RTL;
