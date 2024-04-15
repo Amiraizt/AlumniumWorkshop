@@ -63,5 +63,34 @@ namespace AlumniumWorkshop.Controllers
             return File(abytesReport, "application/pdf");
 
         }
+
+        public async Task<IActionResult> ViewStoreReport()
+        {
+            var result = CS.PrepareStoreReportModel();
+            if (!result.result)
+                return RedirectToAction("Index", "Items");
+            GenerateStoreReport report = new GenerateStoreReport();
+            byte[] abytesReport = report.PrepareReport(result.report);
+
+            return File(abytesReport, "application/pdf");
+
+        }
+
+        public IActionResult ItemsLogReport()
+        {
+            return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> ViewItemsLogReport(DateTime startDate, DateTime endDate)
+        {
+            var result = CS.PrepareItemsStoreReportModel(startDate, endDate);
+            if (!result.result)
+                return RedirectToAction("Index", "Items");
+            GenerateItemsLogReport report = new GenerateItemsLogReport();
+            byte[] abytesReport = report.PrepareReport(result.report);
+
+            return File(abytesReport, "application/pdf");
+
+        }
     }
 }

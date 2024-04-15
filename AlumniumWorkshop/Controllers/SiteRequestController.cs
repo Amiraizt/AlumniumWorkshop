@@ -94,7 +94,7 @@ namespace AlumniumWorkshop.Controllers
             if (!result)
                 Alert("حدث خطأ", Consts.NotificationType.error);
             else
-                Alert("تم التعديل", Consts.NotificationType.success);
+                Alert("تم الحذف", Consts.NotificationType.success);
             return RedirectToAction(nameof(Index));
         }
         public IActionResult SiteItemsList(int siteId)

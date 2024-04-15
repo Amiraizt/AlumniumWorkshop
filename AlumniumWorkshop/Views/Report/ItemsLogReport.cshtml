@@ -1,0 +1,27 @@
+﻿<hr />
+
+<p>
+    <div class="row">
+        <div class="form-group">
+            
+            <form enctype="multipart/form-data" asp-controller="Report" asp-action="ViewItemsLogReport" method="post">
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <label class="control-label" for="exampleInputFile">تاريخ البداية</label>
+                        <input type="date" class="form-control" name="startDate">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label class="control-label" for="exampleInputFile">تاريخ النهاية</label>
+                        <input type="date" class="form-control" name="endDate">
+                    </div>
+                </div>
+                <br />
+                <div class="col-md-3">
+                    <button type="submit" formtarget="_blank" value="Submit" class="btn btn-sm btn-primary col-md-6">انشاء التقرير</button>
+
+                </div>
+            </form>
+
+        </div>
+    </div>
+</p>

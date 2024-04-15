@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using AlumniumWorkshop.Models.AlmniumType;
 using Microsoft.Build.Execution;
 using AlumniumWorkshop.Models.Reports;
+using static iTextSharp.text.pdf.AcroFields;
 
 namespace AlumniumWorkshop.Areas.Helpers
 {
@@ -96,7 +97,7 @@ namespace AlumniumWorkshop.Areas.Helpers
         {
             try
             {
-                var item = new Item()
+                var item = new Alumnium.Core.Item()
                 {
                     Name = model.Name,
                     Quantity = model.Quantity,
@@ -104,6 +105,15 @@ namespace AlumniumWorkshop.Areas.Helpers
                     Status = Consts.ACTIVE
                 };
                 _db.Items.Add(item);
+                _db.SaveChanges();
+
+                var itemLog = new ItemLog()
+                {
+                    ItemId = item.Id,
+                    Quantity = item.Quantity,
+                    AdditionDate = DateTime.Now
+                };
+                _db.ItemLogs.Add(itemLog);
                 _db.SaveChanges();
 
                 return true;
@@ -226,6 +236,16 @@ namespace AlumniumWorkshop.Areas.Helpers
                 getItem.Quantity = getItem.Quantity + model.NewQuantity;
                 _db.Items.Update(getItem);
                 _db.SaveChanges();
+
+                var itemLog = new ItemLog()
+                {
+                    ItemId = model.ItemId,
+                    Quantity = model.NewQuantity,
+                    AdditionDate = DateTime.Now
+                };
+                _db.ItemLogs.Add(itemLog);
+                _db.SaveChanges();
+
                 return true;
             }
             catch (Exception ex)
@@ -1014,6 +1034,101 @@ namespace AlumniumWorkshop.Areas.Helpers
                 name += alm.AlumniumType.TypeName;
             }
             return name;
+        }
+        public (bool result, ItemsConsumingReportModel report) PrepareStoreReportModel()
+        {
+            try
+            {
+                var result = GetStoreReport();
+                if (!result.result)
+                    return (false, new());
+                var report = new ItemsConsumingReportModel()
+                {
+                    Title = "تقرير المخزن ",
+                    //TotalPrice = result.itemsList.Sum(a => a.TotalPrice),
+                    ConsumedItems = result.itemsList
+                };
+                return (true, report);
+            }
+            catch (Exception ex)
+            {
+                EXH.LogException(ex, MethodBase.GetCurrentMethod().ReflectedType.Name, MethodBase.GetCurrentMethod().Name);
+                return (false, new());
+            }
+        }
+        public (bool result, List<ConsumedItemsModel> itemsList) GetStoreReport()
+        {
+            try
+            {
+                var items = _db.Items.Where(e => e.Status == Consts.ACTIVE).ToList();
+
+                var itemsReport = items.Select(a =>
+                {
+                  
+                    return new ConsumedItemsModel
+                    {
+                        Id = a.Id,
+                        Name = a.Name,
+                        WareHouseQuantity = (int)a.Quantity
+                    };
+                }).ToList();
+
+                return (true, itemsReport);
+            }
+            catch (Exception ex)
+            {
+                EXH.LogException(ex, MethodBase.GetCurrentMethod().ReflectedType.Name, MethodBase.GetCurrentMethod().Name);
+                return (false, new());
+            }
+        }
+        public (bool result, ItemsConsumingReportModel report) PrepareItemsStoreReportModel(DateTime startDate, DateTime endDate)
+        {
+            try
+            {
+                var result = GetItemsStoreReport(startDate, endDate);
+                if (!result.result)
+                    return (false, new());
+                var report = new ItemsConsumingReportModel()
+                {
+                    Title = "تقرير اضافة المواد ",
+                    ConsumedItems = result.itemsList,
+                    StartDate = startDate.ToShortDateString(),
+                    EndDate = endDate.ToShortDateString()
+                };
+                return (true, report);
+            }
+            catch (Exception ex)
+            {
+                EXH.LogException(ex, MethodBase.GetCurrentMethod().ReflectedType.Name, MethodBase.GetCurrentMethod().Name);
+                return (false, new());
+            }
+        }
+
+        public (bool result, List<ConsumedItemsModel> itemsList) GetItemsStoreReport(DateTime startDate, DateTime endDate)
+        {
+            try
+            {
+                var items = _db.ItemLogs.Include(e => e.Item).Where(a => a.AdditionDate.Date >= startDate.Date && a.AdditionDate.Date <= endDate.Date).ToList();
+
+                var itemsReport = items.Select(a =>
+                {
+
+                    return new ConsumedItemsModel
+                    {
+                        Id = a.Id,
+                        Name = a.Item.Name,
+                        Quantity = (int)a.Quantity,
+                        AdditionDate = a.AdditionDate.Date
+                    };
+                }).ToList();
+
+                return (true, itemsReport);
+            }
+            catch (Exception ex)
+            {
+                EXH.LogException(ex, MethodBase.GetCurrentMethod().ReflectedType.Name, MethodBase.GetCurrentMethod().Name);
+                return (false, new());
+            }
         }
 
         #region User
