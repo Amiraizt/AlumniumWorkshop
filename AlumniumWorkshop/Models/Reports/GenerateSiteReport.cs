@@ -97,6 +97,18 @@ namespace AlumniumWorkshop.Models.Reports
 
 
             _fontStyle = new Font(basefont, 17, Font.BOLD, BaseColor.BLACK); ;
+            _pdfCell = new PdfPCell(new Phrase("تقرير موقع", _fontStyle));
+            _pdfCell.Colspan = _totalColumn;
+            _pdfCell.ExtraParagraphSpace = 10;
+            _pdfCell.HorizontalAlignment = Element.ALIGN_CENTER;
+            //_pdfCell.HorizontalAlignment = Element.ALIGN_TOP;
+            _pdfCell.Border = 0;
+            _pdfCell.RunDirection = PdfWriter.RUN_DIRECTION_RTL;
+            //_pdfCell.BackgroundColor = BaseColor.WHITE;
+            _pdfTable1.AddCell(_pdfCell);
+            _pdfTable1.CompleteRow();
+
+            _fontStyle = new Font(basefont, 15, Font.BOLD, BaseColor.BLACK); ;
             _pdfCell = new PdfPCell(new Phrase(_model.Title, _fontStyle));
             _pdfCell.Colspan = _totalColumn;
             _pdfCell.ExtraParagraphSpace = 50;
@@ -206,14 +218,14 @@ namespace AlumniumWorkshop.Models.Reports
             _pdfCell.BackgroundColor = lightgrey;
             _pdfTable1.AddCell(_pdfCell);
 
-            _pdfCell = new PdfPCell(new Phrase("النكلفة الافتراضية", boldFont));
+            _pdfCell = new PdfPCell(new Phrase("التكلفة الافتراضية", boldFont));
             _pdfCell.HorizontalAlignment = Element.ALIGN_CENTER;
             _pdfCell.VerticalAlignment = Element.ALIGN_CENTER;
             _pdfCell.RunDirection = PdfWriter.RUN_DIRECTION_RTL;
             _pdfCell.BackgroundColor = lightgrey;
             _pdfTable1.AddCell(_pdfCell);
 
-            _pdfCell = new PdfPCell(new Phrase("النكلفة الحالية", boldFont));
+            _pdfCell = new PdfPCell(new Phrase("التكلفة الحالية", boldFont));
             _pdfCell.HorizontalAlignment = Element.ALIGN_CENTER;
             _pdfCell.VerticalAlignment = Element.ALIGN_CENTER;
             _pdfCell.RunDirection = PdfWriter.RUN_DIRECTION_RTL;

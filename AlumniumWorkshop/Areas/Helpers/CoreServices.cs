@@ -953,7 +953,7 @@ namespace AlumniumWorkshop.Areas.Helpers
                     Meters = ((int)site.MetersNumber).ToString(),
                     WindowsNumber = site.WindowsNumber.ToString(),
                     DoorsNumber = site.DoorsNumber.ToString(),
-                    Title = "تقرير موقع " + site.SiteName,
+                    Title = site.SiteName,
                     Aluminums = aluminumModel,
                     Items = itemsModel,
                     CurrentTotalPrice = itemsModel.Sum(a=>a.Price).ToString()
