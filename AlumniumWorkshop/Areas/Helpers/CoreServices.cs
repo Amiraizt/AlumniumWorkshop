@@ -967,12 +967,12 @@ namespace AlumniumWorkshop.Areas.Helpers
         {
             try
             {
-                var sites = _db.SiteRequests.Where(a => a.Status != Consts.DELETED).Where(a => a.CreatedOn >= startDate && a.CreatedOn <= endDate).ToList();
+                var sites = _db.SiteRequests.Where(a => a.Status != Consts.DELETED).Where(a => a.CreatedOn.Date >= startDate.Date && a.CreatedOn.Date <= endDate.Date).ToList();
                 var model = new SitesGeneralReportModel
                 {
                     Title = "تقرير المواقع ",
-                    StartDate = startDate.ToString(),
-                    EndDate = endDate.ToString(),
+                    StartDate = startDate.ToShortDateString(),
+                    EndDate = endDate.ToShortDateString(),
                     TotalPrice = sites.Sum(a => a.TotalPrice).ToString(),
                     Sites = sites.Select(a => new SitesGeneralReportModel.SiteModel
                     {
