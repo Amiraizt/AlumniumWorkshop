@@ -900,21 +900,17 @@ namespace AlumniumWorkshop.Areas.Helpers
                 var usedAlumuniums = _db.SiteUsedAlumimums.Include(a => a.AlumniumType).Where(a => a.SiteRequestId == Id).ToList();
                 var itemsModel = new List<SiteReportModel.ItemModel>();
                 var aluminumModel = new List<SiteReportModel.AluminumModel>();
-                var itemsList = _db.SiteUsedItems.Where(a => a.SiteId == Id).Include(a=>a.Item).ToList().GroupBy(a => new { a.ItemId, a.Item })
-                    .Select(a => new
-                    {
-                        ItemId = a.Key.ItemId,
-                        Item = a.Key.Item,
-                        UsedQty = a.Sum(t=>t.UsedQuantity)
-                    }).ToList();
+                var itemsList = _db.SiteUsedItems.Where(a => a.SiteId == Id).Include(a => a.Item).ToList();
+                 
                 foreach(var itm in itemsList)
                 {
                     var item = new SiteReportModel.ItemModel
                     {
                         ItemName = itm.Item.Name,
-                        Price = (double)(itm.UsedQty * itm.Item.Price),
+                        Price = (double)(itm.UsedQuantity * itm.Item.Price),
                         UnitPrice = itm.Item.Price.ToString(),
-                        UsedQuantity = itm.UsedQty.ToString()
+                        UsedQuantity = itm.UsedQuantity.ToString(),
+                        UsedQuantityDate = itm.UsedDate.ToString()
                     };
                     itemsModel.Add(item);
                 }
