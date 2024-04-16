@@ -9,9 +9,10 @@
 <hr />
 
 <p>
+    <a class="btn btn-sm btn-primary" asp-action="Create">اضافة مادة</a>
+
     @if (User.IsInRole(Consts.SystemAdminUserRole))
     {
-        <a class="btn btn-sm btn-primary" asp-action="Create">اضافة مادة</a>
         <a class="btn btn-sm btn-primary" asp-action="AddNewItemQuantity">اضافة كمية جديدة للمواد</a>
     }
 </p>
