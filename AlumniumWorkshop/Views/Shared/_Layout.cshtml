@@ -111,6 +111,10 @@
                                                     {
                                                         <lable>System Admin </lable>
                                                     }
+                                                    @if (User.IsInRole(Consts.Accountant))
+                                                    {
+                                                        <lable>Accountant </lable>
+                                                    }
                                                     else
                                                     {
                                                         <lable>Employee </lable> 
@@ -179,7 +183,12 @@
                                     <!--end:Menu link-->
                                 </div>
                                 <!--end:Menu item-->
-                                <!--begin:Menu item-->
+                                @if (User.IsInRole(Consts.Accountant)){
+
+                                }
+                                else
+                                {
+                                    <!--begin:Menu item-->
                                 <div class="menu-item">
                                     <!--begin:Menu link-->
                                     <a class="menu-link py-3" href="/AluminumType/Index">
@@ -190,7 +199,12 @@
                                     <!--end:Menu link-->
                                 </div>
                                 <!--end:Menu item-->
-                                <!--begin:Menu item-->
+                                }
+                                @if (User.IsInRole(Consts.Accountant)){
+
+                                }
+                                else{
+<!--begin:Menu item-->
                                 <div class="menu-item">
                                     <!--begin:Menu link-->
                                     <a class="menu-link py-3" href="/SiteRequest/Index">
@@ -201,7 +215,13 @@
                                     <!--end:Menu link-->
                                 </div>
                                 <!--end:Menu item-->
-                                <!--begin:Menu item-->
+                                }
+                                @if (User.IsInRole(Consts.Accountant)){
+
+                                }
+                                else
+                                {
+<!--begin:Menu item-->
                                 <div data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-placement="bottom-start" class="menu-item menu-lg-down-accordion menu-sub-lg-down-indention me-0 me-lg-2">
                                     <!--begin:Menu link-->
                                     <span class="menu-link py-3">
@@ -277,6 +297,8 @@
                                     <!--end:Menu sub-->
                                 </div>
                                 <!--end:Menu item-->
+                                }
+                                
                                 @if (User.IsInRole(Consts.SystemAdminUserRole))
                                 {
                                     <!--begin:Menu item-->

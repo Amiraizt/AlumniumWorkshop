@@ -22,6 +22,7 @@ namespace Alumnium.Core
         #region User Roles 
         public const string AdminUserRole = "Admin";
         public const string SystemAdminUserRole = "System Admin";
+        public const string Accountant = "Accountant";
         #endregion
         public enum NotificationType
         {

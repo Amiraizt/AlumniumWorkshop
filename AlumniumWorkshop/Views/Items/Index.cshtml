@@ -11,7 +11,7 @@
 <p>
     <a class="btn btn-sm btn-primary" asp-action="Create">اضافة مادة</a>
 
-    @if (User.IsInRole(Consts.SystemAdminUserRole))
+    @if (User.IsInRole(Consts.SystemAdminUserRole) || User.IsInRole(Consts.Accountant) )
     {
         <a class="btn btn-sm btn-primary" asp-action="AddNewItemQuantity">اضافة كمية جديدة للمواد</a>
     }
@@ -65,7 +65,7 @@
 
                                     </td>
                                     <td>
-                                        @if (User.IsInRole(Consts.SystemAdminUserRole))
+                                        @if (User.IsInRole(Consts.SystemAdminUserRole) || User.IsInRole(Consts.Accountant))
                                         {
                                             <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1" target="_blank" title="تعديل" data-bs-toggle="tooltip" data-bs-trigger="hover">
                                                 <i class="ki-duotone ki-pencil fs-2">
