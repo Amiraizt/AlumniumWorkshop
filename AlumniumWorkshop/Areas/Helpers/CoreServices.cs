@@ -900,21 +900,24 @@ namespace AlumniumWorkshop.Areas.Helpers
                 var usedAlumuniums = _db.SiteUsedAlumimums.Include(a => a.AlumniumType).Where(a => a.SiteRequestId == Id).ToList();
                 var itemsModel = new List<SiteReportModel.ItemModel>();
                 var aluminumModel = new List<SiteReportModel.AluminumModel>();
-                var itemsList = _db.SiteUsedItems.Where(a => a.SiteId == Id).Include(a=>a.Item).ToList().GroupBy(a => new { a.ItemId, a.Item })
-                    .Select(a => new
-                    {
-                        ItemId = a.Key.ItemId,
-                        Item = a.Key.Item,
-                        UsedQty = a.Sum(t=>t.UsedQuantity)
-                    }).ToList();
+                var itemsList = _db.SiteUsedItems.Where(a => a.SiteId == Id).Include(a => a.Item).ToList().GroupBy(a=> new { a.Item, a.UsedDate.Date }).Select(a => new
+                {
+                    itemName = a.Key.Item.Name,
+                    totalPrice = a.Sum(t=>t.UsedQuantity) * a.Key.Item.Price,
+                    price = a.Key.Item.Price,
+                    usedQty = a.Sum(t=>t.UsedQuantity),
+                    usedDate = a.Key.Date.ToShortDateString()
+                }).ToList();
+                 
                 foreach(var itm in itemsList)
                 {
                     var item = new SiteReportModel.ItemModel
                     {
-                        ItemName = itm.Item.Name,
-                        Price = (double)(itm.UsedQty * itm.Item.Price),
-                        UnitPrice = itm.Item.Price.ToString(),
-                        UsedQuantity = itm.UsedQty.ToString()
+                        ItemName = itm.itemName,
+                        Price = (double)(itm.totalPrice),
+                        UnitPrice = itm.price.ToString(),
+                        UsedQuantity = itm.usedQty.ToString(),
+                        UsedQuantityDate = itm.usedDate.ToString()
                     };
                     itemsModel.Add(item);
                 }
@@ -950,7 +953,7 @@ namespace AlumniumWorkshop.Areas.Helpers
                     Meters = ((int)site.MetersNumber).ToString(),
                     WindowsNumber = site.WindowsNumber.ToString(),
                     DoorsNumber = site.DoorsNumber.ToString(),
-                    Title = "تقرير موقع " + site.SiteName,
+                    Title = site.SiteName,
                     Aluminums = aluminumModel,
                     Items = itemsModel,
                     CurrentTotalPrice = itemsModel.Sum(a=>a.Price).ToString()

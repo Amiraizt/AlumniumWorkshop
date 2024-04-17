@@ -18,6 +18,7 @@
             public string UsedQuantity { get; set; }
             public string UnitPrice { get; set; }
             public double Price { get; set; }
+            public string UsedQuantityDate { get; set; }
         }
         public class AluminumModel
         {
