@@ -136,5 +136,28 @@ namespace AlumniumWorkshop.Controllers
                 Alert("تمت العملية بنجاح", Consts.NotificationType.success);
             return RedirectToAction(nameof(Index));
         }
+        [HttpGet]
+        public async Task<IActionResult> ChangePassword()
+        {
+            return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> ChangePassword(ChangePasswordModel model)
+        {
+            var user =await _userManager.GetUserAsync(User);
+            var result = await _userManager.ChangePasswordAsync(user, model.OldPassword, model.ConfirmPassword);
+
+            if (!result.Succeeded)
+            {
+                Alert("حدث خطأ", Consts.NotificationType.error);
+                return RedirectToAction(nameof(ChangePassword));
+            }
+            else
+            {
+                Alert("تمت العملية بنجاح", Consts.NotificationType.success);
+                return RedirectToAction(nameof(Logout));
+            }
+
+        }
     }
 }

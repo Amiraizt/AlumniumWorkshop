@@ -1,6 +1,14 @@
 ﻿@using Alumnium.Core
+@using Alumnium.Core.DbContext
 @using Microsoft.AspNetCore.Identity
-
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+@inject ApplicationDBContext dbContext;
+@{
+    var user = await UserManager.GetUserAsync(User);
+    var email = user.Email;
+    // var currentUser = dbContext.Users.FirstOrDefault(a => a.Id == userId);
+}
 <html lang="ar-sa" dir="rtl">
 <!--begin::Head-->
 <head>
@@ -83,7 +91,7 @@
                                     <div class="d-none d-md-flex flex-column align-items-end justify-content-center me-2 me-md-4">
                                        
                                     
-                                        <span class="text-white fs-8 fw-bold lh-1 mb-1">@User.Identity.Name</span>
+                                        <span class="text-white fs-8 fw-bold lh-1 mb-1">@email</span>
                                         <!-- <span class="text-white fs-8 opacity-75 fw-semibold lh-1">Session["jobtitle"]</span> -->
                                     </div>
                                     <!--end::Name-->
@@ -132,6 +140,9 @@
                                     
                                     <!--begin::Menu separator-->
                                     <div class="separator my-2"></div>
+                                    <div class="menu-item px-5">
+                                        <a href="/User/ChangePassword" class="menu-link px-5">تغيير كلمة السر</a>
+                                    </div>
                                     <!--end::Menu separator-->
                                     <!--begin::Menu item-->
                                     <div class="menu-item px-5">
