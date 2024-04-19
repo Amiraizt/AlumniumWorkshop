@@ -65,18 +65,13 @@
                                                 <span class="path1"></span>
                                                 <span class="path2"></span>
                                             </i>
-                                        </a> 
-
-                                        @if (User.IsInRole(Consts.SystemAdminUserRole))
-                                        {
-                                            <text>|</text>
-                                            <a   asp-action="SiteItemsList" asp-route-siteId="@item.Id" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1" target="_blank" title="اضافة مواد جديدة للموقع" data-bs-toggle="tooltip" data-bs-trigger="hover">
+                                        </a> |
+                                        <a   asp-action="SiteItemsList" asp-route-siteId="@item.Id" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1" target="_blank" title="اضافة مواد جديدة للموقع" data-bs-toggle="tooltip" data-bs-trigger="hover">
                                             <i class="ki-duotone ki-switch fs-2">
                                                 <span class="path1"></span>
                                                 <span class="path2"></span>
                                             </i>
                                         </a> 
-                                        }
                                         |
                                         <a asp-action="Delete" asp-route-id="@item.Id" onclick="return confirm('هل تريد الحذف ؟');" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1" target="_blank" title="حذف" data-bs-toggle="tooltip" data-bs-trigger="hover">
 																		<i class="ki-duotone ki-trash fs-2" style="color:red">
@@ -86,9 +81,8 @@
 																			<span class="path4"></span>
 																			<span class="path5"></span>
 																		</i>
-																	</a>
-                                        @* <a asp-controller="Report" asp-action="ViewSiteReport" asp-route-id="@item.Id" class="btn btn-bg-light btn-color-muted btn-active-color-primary btn-sm px-4">Report</a>
-                                    *@
+										</a>
+                                       
                                     </td>
                                 </tr>
                             }
