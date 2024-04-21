@@ -1,4 +1,5 @@
-﻿@model AlumniumWorkshop.Models.SiteRequest.CreateSiteRequestModel
+﻿@using Alumnium.Core
+@model AlumniumWorkshop.Models.SiteRequest.CreateSiteRequestModel
 
 @{
     ViewData["Title"] = "Create";
@@ -66,7 +67,11 @@
 
 
                 <div class="card-footer">
-                    <input type="submit" id="submit" value="حفظ" class="btn btn-sm btn-primary" />
+                    @if (Context.User.IsInRole(Consts.SystemAdminUserRole))
+                    {
+                        <input type="submit" id="submit" value="حفظ" class="btn btn-sm btn-primary" />
+                    }
+                    
                     <a onclick="calculateTotal()" class="btn btn-sm btn-primary">حساب المجموع</a>
                 </div>
             </div>
