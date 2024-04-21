@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
+using static Org.BouncyCastle.Math.EC.ECCurve;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,8 +19,7 @@ builder.Services.AddDbContext<ApplicationDBContext>(options =>
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
 .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, options =>
 {
-    options.ExpireTimeSpan = TimeSpan.FromMinutes(120);
-    options.SlidingExpiration = true;
+    options.ExpireTimeSpan = TimeSpan.FromMinutes(140); 
     options.LoginPath = "/identity/account/login";
 });
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
