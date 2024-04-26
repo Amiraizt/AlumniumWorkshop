@@ -47,7 +47,8 @@ namespace AlumniumWorkshop.Areas.Helpers
                     Name = a.Name,
                     Quantity = a.Quantity,
                     UnitPrice = a.Price,
-                    Status = a.Status
+                    Status = a.Status,
+                    CreationDate = a.CreationDate.Date.ToShortDateString(),
                 }).ToList();
                 return (true, items);
             }
@@ -102,6 +103,7 @@ namespace AlumniumWorkshop.Areas.Helpers
                     Name = model.Name,
                     Quantity = model.Quantity,
                     Price = model.UnitPrice,
+                    CreationDate = DateTime.Now,
                     Status = Consts.ACTIVE
                 };
                 _db.Items.Add(item);
@@ -132,6 +134,7 @@ namespace AlumniumWorkshop.Areas.Helpers
                 getItem.Name = model.Name;
                 getItem.Quantity = model.Quantity;
                 getItem.Price = model.UnitPrice;
+                getItem.CreationDate = DateTime.Now;
                 _db.Items.Update(getItem);
                 _db.SaveChanges();
                 return true;
@@ -234,6 +237,7 @@ namespace AlumniumWorkshop.Areas.Helpers
             {
                 var getItem = _db.Items.FirstOrDefault(a => a.Id == model.ItemId);
                 getItem.Quantity = getItem.Quantity + model.NewQuantity;
+                getItem.CreationDate = DateTime.Now;
                 _db.Items.Update(getItem);
                 _db.SaveChanges();
 

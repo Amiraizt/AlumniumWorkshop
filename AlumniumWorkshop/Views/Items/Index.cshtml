@@ -40,6 +40,7 @@
                                 </th>
                                 <th>السعر</th>
                                 <th>الحالة</th>
+                                <th>التاريخ</th>
                                 <th> الاجراء</th>
                             </tr>
                         </thead>
@@ -67,6 +68,9 @@
 
                                         }
 
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.CreationDate)
                                     </td>
                                     <td>
                                         @if (User.IsInRole(Consts.SystemAdminUserRole))
